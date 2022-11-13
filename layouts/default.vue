@@ -2,16 +2,20 @@
     <div>
         <transition name="fade">
             <div class="bg-primary h-screen grid items-center z-50 fixed top-0 left-0 w-screen" v-if="loading">
-                <div class="sk-cube-grid [&>*]:bg-secondary">
-                    <div class="sk-cube sk-cube1"></div>
-                    <div class="sk-cube sk-cube2"></div>
-                    <div class="sk-cube sk-cube3"></div>
-                    <div class="sk-cube sk-cube4"></div>
-                    <div class="sk-cube sk-cube5"></div>
-                    <div class="sk-cube sk-cube6"></div>
-                    <div class="sk-cube sk-cube7"></div>
-                    <div class="sk-cube sk-cube8"></div>
-                    <div class="sk-cube sk-cube9"></div>
+                <div>
+                    <div class="sk-cube-grid [&>*]:bg-secondary">
+                        <div class="sk-cube sk-cube1"></div>
+                        <div class="sk-cube sk-cube2"></div>
+                        <div class="sk-cube sk-cube3"></div>
+                        <div class="sk-cube sk-cube4"></div>
+                        <div class="sk-cube sk-cube5"></div>
+                        <div class="sk-cube sk-cube6"></div>
+                        <div class="sk-cube sk-cube7"></div>
+                        <div class="sk-cube sk-cube8"></div>
+                        <div class="sk-cube sk-cube9"></div>
+                    </div>
+                    <div class="text-secondary text-5xl mt-4 text-center">Balapi</div>
+                    <div class="text-secondary text-2xl mt-4 text-center">"For those who are not afraid of shame"</div>
                 </div>
             </div>
         </transition>

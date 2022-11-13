@@ -84,18 +84,42 @@
     opacity: 0;
 }
 
+.fade-in-out-leave-active,
+.fade-in-out-enter-active {
+    transition: .2s opacity  linear;
+}
+
+.fade-in-out-leave-to,
+.fade-in-out-enter-from {
+    opacity: 0;
+}
+
 body {
     font-family: "Ubuntu", sans-serif;
     background: #b98ecc69;
-    /* position: relative;
-    min-height: 100vh; */
+    color: #9656b3;
+    position: relative;
+    min-height: 100vh;
 }
 
-/* body::after {
+body::after {
     content: "";
     position: absolute;
     inset: 0;
     background: url("~/assets/images/balapi.svg");
     background-size: cover;
-    opacity: 0.8;
-} */
+    opacity: 1;
+    z-index: -1;
+}
+
+input{
+    border-radius: 100rem;
+    color: black;
+    padding: .5rem 1rem;
+    background: #b98ecc69;
+}
+
+input:focus{
+outline: 2px solid #b98ecc69;
+
+}
