@@ -59,7 +59,11 @@ export default {
                 body: JSON.stringify({ name: this.name }),
             })
             .then((response) => console.log(JSON.stringify(response)))
-            .then( () => this.getTeams() );
+            .then( () => this.getTeams() )
+            .then( () => {
+                this.isOpen = false;
+                this.name = "";
+            });
         },
         some(){
             alert()
