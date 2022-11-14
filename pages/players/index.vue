@@ -16,7 +16,7 @@
         </div>
 
         <transition name="fade-in-out">
-            <UIBaseModal v-if="isOpen" @close-modal="isOpen = false"  v-click-outside="some">
+            <UIBaseModal v-if="isOpen" @close-modal="isOpen = false" >
                 <h2 class="text-xl mx-auto mb-2 text-center">Add Player</h2>
                 <form @submit.prevent="addPlayer" class="[&>*]:mb-4">
                     <div>
@@ -73,9 +73,6 @@ export default {
                 this.player.number = "";
             });
         },
-        some(){
-            alert()
-        }
     },
 };
 </script>

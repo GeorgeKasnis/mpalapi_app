@@ -20,7 +20,7 @@
             </div>
         </transition>
         <UITheHeader />
-        <div class="px-4"><slot /></div>
+        <div class="px-4 py-8"><slot /></div>
     </div>
 </template>
 
@@ -28,7 +28,7 @@
 export default {
     data() {
         return {
-            loading: true,
+            loading: false,
         };
     },
     beforeMount() {

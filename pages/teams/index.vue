@@ -4,25 +4,23 @@
 
         <button @click="isOpen = true" class="text-primary mx-auto mb-8 bg-secondary w-12 h-12 rounded-full grid place-items-center text-4xl shadow-md shadow-gray-500">+</button>
 
-        <div class="grid grid-cols-2 gap-8 max-w-md mx-auto">
-
-            <UIBaseContainer noPadding="true" class="text-xl text-primary" v-for="team,index in teams" :key="index">
-                <nuxt-link :to="`/teams/${team.id}`" class="relative after:grid after:place-items-center after:text-3xl after:content-['👁'] after:absolute after:inset-0 after:rounded-full after:pointer-events-none after:bg-black after:opacity-0 hover:after:opacity-40 after:transition-all">
-                    <div class="text-center px-4 transition rounded-t-full py-2 block border-b border-dashed border-purple-200">{{team.name}}</div>
-                </nuxt-link>
-            </UIBaseContainer>
-            
-        </div>
+        <transition name="fade-in-out">
+            <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto" v-if="!loading">
+                <UIBaseCard v-for="(team, index) in teams" :key="index" :name="team.name" :link="'teams/' + team.id" img-src="https://i.pinimg.com/474x/07/b1/33/07b133e78156c97e369946d65b4bfef6.jpg" />
+            </div>
+        </transition>
 
         <transition name="fade-in-out">
-            <UIBaseModal v-if="isOpen" @close-modal="isOpen = false"  v-click-outside="some">
+            <UIBaseModal v-if="isOpen" @close-modal="isOpen = false">
                 <h2 class="text-xl mx-auto mb-2 text-center">Add Team</h2>
                 <form @submit.prevent="addTeam" class="[&>*]:mb-4">
-                    <div><input v-model="name" class="border" placeholder="Team name" type="text" /></div>
+                    <div><input v-model="name" class="border text-white" placeholder="Team name" type="text" /></div>
                     <ButtonsBaseBtn name="Add Team" />
                 </form>
             </UIBaseModal>
         </transition>
+
+        <UIBaseLoadingSpinner v-if="loading" />
     </div>
 </template>
 
@@ -30,24 +28,29 @@
 export default {
     data() {
         return {
-            teams : {},
+            teams: {},
             name: "",
-            isOpen:false
+            isOpen: false,
+            loading: true,
         };
     },
     mounted() {
-        this.getTeams()     
+        this.getTeams();
     },
     methods: {
-        async getTeams(){
+        async getTeams() {
             $fetch("http://127.0.0.1:8000/api/teams", {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                }
+                },
             })
-            .then((response) => this.teams = response );
+                .then((response) => (this.teams = response))
+                .then(() => {
+                    this.loading = false;
+                    console.log(this.loading);
+                });
         },
         async addTeam() {
             $fetch("http://127.0.0.1:8000/api/teams", {
@@ -58,16 +61,12 @@ export default {
                 },
                 body: JSON.stringify({ name: this.name }),
             })
-            .then((response) => console.log(JSON.stringify(response)))
-            .then( () => this.getTeams() )
-            .then( () => {
-                this.isOpen = false;
-                this.name = "";
-            });
+                .then((response) => console.log(JSON.stringify(response)))
+                .then(() => this.getTeams());
+
+            this.isOpen = false;
+            this.name = "";
         },
-        some(){
-            alert()
-        }
     },
 };
 </script>
