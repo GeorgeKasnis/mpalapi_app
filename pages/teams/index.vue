@@ -5,32 +5,20 @@
         <button @click="isOpen = true" class="text-primary mx-auto mb-8 bg-secondary w-12 h-12 rounded-full grid place-items-center text-4xl shadow-md shadow-gray-500">+</button>
 
         <div class="grid grid-cols-2 gap-8 max-w-md mx-auto">
-            <UIBaseContainer noPadding="true" class="text-xl text-primary">
+
+            <UIBaseContainer noPadding="true" class="text-xl text-primary" v-for="team,index in teams" :key="index">
                 <nuxt-link to="#" class="relative after:grid after:place-items-center after:text-3xl after:content-['👁'] after:absolute after:inset-0 after:rounded-full after:pointer-events-none after:bg-black after:opacity-0 hover:after:opacity-40 after:transition-all">
-                    <div class="text-center px-4 transition rounded-t-full py-2 block border-b border-dashed border-purple-200">Σπύρος</div>
-                    <div class="text-center px-4 transition rounded-b-full py-2 block">Κασνής</div>
+                    <div class="text-center px-4 transition rounded-t-full py-2 block border-b border-dashed border-purple-200">{{team.name}}</div>
                 </nuxt-link>
             </UIBaseContainer>
-            <UIBaseContainer noPadding="true" class="text-xl text-primary">
-                <nuxt-link to="#" class="relative after:grid after:place-items-center after:text-3xl after:content-['👁'] after:absolute after:inset-0 after:rounded-full after:pointer-events-none after:bg-black after:opacity-0 hover:after:opacity-40 after:transition-all">
-                    <div class="text-center px-4 transition rounded-t-full py-2 block border-b border-dashed border-purple-200">Καλούκης</div>
-                    <div class="text-center px-4 transition rounded-b-full py-2 block">Μπάμπης</div>
-                </nuxt-link>
-            </UIBaseContainer>
-            <UIBaseContainer noPadding="true" class="text-xl text-primary">
-                <nuxt-link to="#" class="relative after:grid after:place-items-center after:text-3xl after:content-['👁'] after:absolute after:inset-0 after:rounded-full after:pointer-events-none after:bg-black after:opacity-0 hover:after:opacity-40 after:transition-all">
-                    <div class="text-center px-4 transition rounded-t-full py-2 block border-b border-dashed border-purple-200">Στάυρος</div>
-                    <div class="text-center px-4 transition rounded-b-full py-2 block">Μάστορης</div>
-                </nuxt-link>
-            </UIBaseContainer>
+            
         </div>
 
         <transition name="fade-in-out">
             <UIBaseModal v-if="isOpen" @close-modal="isOpen = false"  v-click-outside="some">
                 <h2 class="text-xl mx-auto mb-2 text-center">Add Team</h2>
                 <form @submit.prevent="addTeam" class="[&>*]:mb-4">
-                    <div><input v-model="member1" class="border" type="text" /></div>
-                    <div><input v-model="member2" class="border" type="text" /></div>
+                    <div><input v-model="name" class="border" placeholder="Team name" type="text" /></div>
                     <ButtonsBaseBtn name="Add Team" />
                 </form>
             </UIBaseModal>
@@ -42,12 +30,25 @@
 export default {
     data() {
         return {
-            member1: "",
-            member2: "",
+            teams : {},
+            name: "",
             isOpen:false
         };
     },
+    mounted() {
+        this.getTeams()     
+    },
     methods: {
+        async getTeams(){
+            $fetch("http://127.0.0.1:8000/api/teams", {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                }
+            })
+            .then((response) => this.teams = response );
+        },
         async addTeam() {
             $fetch("http://127.0.0.1:8000/api/teams", {
                 method: "POST",
@@ -55,8 +56,10 @@ export default {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name: "aaa" }),
-            }).then((response) => console.log(JSON.stringify(response)));
+                body: JSON.stringify({ name: this.name }),
+            })
+            .then((response) => console.log(JSON.stringify(response)))
+            .then( () => this.getTeams() );
         },
         some(){
             alert()
