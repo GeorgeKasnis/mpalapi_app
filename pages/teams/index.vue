@@ -6,7 +6,7 @@
 
         <transition name="fade-in-out">
             <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto" v-if="!loading">
-                <UIBaseCard v-for="(team, index) in teams" :key="index" :name="team.name" :link="'teams/' + team.id" img-src="https://i.pinimg.com/474x/07/b1/33/07b133e78156c97e369946d65b4bfef6.jpg" />
+                <UIBaseCard v-for="(team, index) in teams" :key="index" :name="team.name" :link="'teams/' + team.id" deletable="true" img-src="https://i.pinimg.com/474x/07/b1/33/07b133e78156c97e369946d65b4bfef6.jpg" />
             </div>
         </transition>
 
