@@ -7,7 +7,7 @@
         <div class="grid grid-cols-2 gap-8 max-w-md mx-auto">
 
             <UIBaseContainer noPadding="true" class="text-xl text-primary" v-for="team,index in teams" :key="index">
-                <nuxt-link to="#" class="relative after:grid after:place-items-center after:text-3xl after:content-['👁'] after:absolute after:inset-0 after:rounded-full after:pointer-events-none after:bg-black after:opacity-0 hover:after:opacity-40 after:transition-all">
+                <nuxt-link :to="`/teams/${team.id}`" class="relative after:grid after:place-items-center after:text-3xl after:content-['👁'] after:absolute after:inset-0 after:rounded-full after:pointer-events-none after:bg-black after:opacity-0 hover:after:opacity-40 after:transition-all">
                     <div class="text-center px-4 transition rounded-t-full py-2 block border-b border-dashed border-purple-200">{{team.name}}</div>
                 </nuxt-link>
             </UIBaseContainer>
