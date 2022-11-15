@@ -114,9 +114,13 @@ body::after {
 
 input{
     border-radius: 100rem;
-    color: black;
+    color: white;
     padding: .5rem 1rem;
     background: #b98ecc69;
+}
+
+input::placeholder{
+    color: rgba(255, 255, 255, 0.546);
 }
 
 input:focus{
