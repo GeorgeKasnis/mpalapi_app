@@ -6,7 +6,7 @@
 
         <transition name="fade-in-out">
             <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto" v-if="!loading">
-                <UIBaseCard v-for="(team, index) in teams" :key="index" :name="team.name" :link="'teams/' + team.id" deletable="true" img-src="https://i.pinimg.com/474x/07/b1/33/07b133e78156c97e369946d65b4bfef6.jpg" />
+                <UIBaseCard v-for="(team, index) in teams" :key="index" :name="team.name" :link="'teams/' + team.id" @delete="deleteTeam(team.id)" deletable="true" />
             </div>
         </transition>
 
@@ -32,14 +32,17 @@ export default {
             name: "",
             isOpen: false,
             loading: true,
+            baseUrl: "",
         };
     },
     mounted() {
+        const config = useRuntimeConfig();
+        this.baseUrl = config.BASE_URL;
         this.getTeams();
     },
     methods: {
         async getTeams() {
-            $fetch("http://127.0.0.1:8000/api/teams", {
+            await $fetch(`${this.baseUrl}/api/teams`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
@@ -49,11 +52,11 @@ export default {
                 .then((response) => (this.teams = response))
                 .then(() => {
                     this.loading = false;
-                    console.log(this.loading);
                 });
+                console.log(this.teams);
         },
         async addTeam() {
-            $fetch("http://127.0.0.1:8000/api/teams", {
+            await $fetch(`${this.baseUrl}/api/teams`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
@@ -63,6 +66,14 @@ export default {
             })
                 .then((response) => console.log(JSON.stringify(response)))
                 .then(() => this.getTeams());
+
+            this.isOpen = false;
+            this.name = "";
+        },
+        async deleteTeam(id) {
+            await $fetch(`${this.baseUrl}/api/teams/${id}`, {
+                method: "DELETE",
+            }).then(() => this.getTeams());
 
             this.isOpen = false;
             this.name = "";
