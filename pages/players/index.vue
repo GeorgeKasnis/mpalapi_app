@@ -5,7 +5,7 @@
         <button @click="isOpen = true" class="text-primary mx-auto mb-8 bg-secondary w-12 h-12 rounded-full grid place-items-center text-4xl shadow-md shadow-gray-500">+</button>
 
         <div class="grid grid-cols-2 gap-8 max-w-xl mx-auto">
-            <UIBaseCard v-for="(player, index) in players" :key="index" :number="player.number" link="/players/player1" deletable="true" @delete="detachPlayer(player.id)" :name="player.name" />
+            <UIBaseCard v-for="(player, index) in players" :key="index" :number="player.number" :link="`/players/${player.id}`" deletable="true" @delete="detachPlayer(player.id)" :name="player.name" />
         </div>
 
         <transition name="fade-in-out">

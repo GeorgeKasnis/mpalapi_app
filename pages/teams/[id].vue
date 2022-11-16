@@ -8,7 +8,7 @@
 
         <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto">
             <div v-for="(player, index) in team.players" :key="index" >
-                <UIBaseCard :number="player.number" deletable="true" @delete="detatchPlayer(player.id)" :name="player.name" />
+                <UIBaseCard :number="player.number" deletable="true" @delete="detatchPlayer(player.id)" :link="`/players/${player.id}`" :name="player.name" />
             </div >
         </div>
 
