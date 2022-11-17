@@ -5,8 +5,8 @@
         <button @click="isOpen = true" class="text-primary mx-auto mb-8 bg-secondary w-12 h-12 rounded-full grid place-items-center text-4xl shadow-md shadow-gray-500">+</button>
 
         <transition name="fade-in-out">
-            <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto" v-if="!loading">
-                <!-- <UIBaseCard v-for="(championship, index) in championships" :key="index" :name="championship.title" :link="`/championships/${championship.id}`" @delete="deleteChampionship(championship.id)" deletable="true" /> -->
+            <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
+                <UIBaseCard v-for="(game, index) in games" :key="index" :link="`/games/${game.id}`" :name="`${game.team_a.name} ${game.team_a_goals} - ${game.team_b_goals} ${game.team_b.name}`" @delete="deleteGame(game.id)" deletable="true" />
             </div>
         </transition>
 
@@ -17,26 +17,27 @@
                     <div>
                         <label
                             >Team A
-                            <select placeholder="Team A" v-model="teamA" class="border w-full text-black">
+                            <select placeholder="Team A" v-model="game.teamA" class="border w-full text-black">
                                 <option :value="team.id" v-for="(team, index) in teams" :key="index">{{ team.name }}</option>
                             </select>
                         </label>
                     </div>
                           <div>
                         <label
-                            >Team A
-                            <select placeholder="Team A" v-model="teamB" class="border w-full text-black">
+                            >Team B
+                            <select placeholder="Team B" v-model="game.teamB" class="border w-full text-black">
                                 <option :value="team.id" v-for="(team, index) in teams" :key="index">{{ team.name }}</option>
                             </select>
                         </label>
                     </div>
-                    <div><input v-model="teamAScore" class="border text-white" placeholder="Team A goals" type="number" /></div>
-                    <div><input v-model="teamBScore" class="border text-white" placeholder="Team B goals" type="number" /></div>
+                    <div><input v-model="game.goalsA" class="border text-white" placeholder="Team A goals" type="number" /></div>
+                    <div><input v-model="game.goalsB" class="border text-white" placeholder="Team B goals" type="number" /></div>
                     <div>
                         <label
                             >Select Championship
-                            <select placeholder="Championship" v-model="championshipName" class="border w-full text-black">
-                                <option :value="champ.id" v-for="(champ, index) in championships" :key="index">{{ champ.title }}</option>
+                            <select placeholder="Championship" v-model="game.championshipId" class="border w-full text-black">
+                                <option :value="null">Friendly Match</option>
+                                <option :value="championship.id" v-for="(championship, index) in championships" :key="index">{{ championship.title }}</option>
                             </select>
                         </label>
                     </div>
@@ -54,16 +55,18 @@ export default {
     data() {
         return {
             championships: {},
-            teams: "",
-            championshipTitle: "",
+            teams: {},
             isOpen: false,
             loading: true,
             baseUrl: null,
-            teamA: "",
-            lol: "",
-            teamAScore: "",
-            teamBScore: "",
-            championshipName: null,
+            game: {
+                teamA : null,
+                teamB : null,
+                goalsA : null,
+                goalsB : null,
+                championshipId : null,
+            },
+            games: {}
         };
     },
     mounted() {
@@ -71,10 +74,11 @@ export default {
         this.baseUrl = config.BASE_URL;
         this.getChampionships();
         this.getTeams();
+        this.getGames();
     },
     methods: {
         async getChampionships() {
-            await $fetch(`${this.baseUrl}/api/championships`, {
+            await $fetch(`${this.baseUrl}/api/championships?status=open`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
@@ -93,38 +97,67 @@ export default {
                     "Content-Type": "application/json",
                 },
             })
-                .then((response) => (this.teams = response))
-                .then(() => {
+                .then((response) => {
+                    this.teams = response;
                     this.loading = false;
                 });
         },
+        async getGames() {
+            await $fetch(`${this.baseUrl}/api/games`, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((response) => {
+                    this.games = response;
+                    this.loading = false;
+                });
+        },
+        buildGame(){
+            let gamePayload = {
+                team_a_id: this.game.teamA,
+                team_b_id: this.game.teamB,
+                team_a_goals: this.game.goalsA,
+                team_b_goals: this.game.goalsB
+            };
+            if(this.game.championshipId != null){
+                gamePayload.championship_id = this.game.championshipId;
+            }
+            return JSON.stringify(gamePayload);
+        },
         async createGame() {
-            console.log(this.teamA, this.teamB, this.teamAScore, this.teamBScore, this.championshipName);
+            this.buildGame();
             await $fetch(`${this.baseUrl}/api/games`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    team_a_id: this.teamA,
-                    team_b_id: this.teamB,
-                    team_a_goals: this.teamAScore,
-                    team_b_goals: this.teamBScore,
-                    championship_id: this.championshipName,
-                }),
+                body: this.buildGame(),
             })
                 .then((response) => {
                     console.log(response);
-                })
-                .then(() => {
+                    this.getGames();
                     this.isOpen = false;
-                    this.teamA = "";
-                    this.teamB = "";
-                    this.teamAScore = "";
-                    this.teamBScore = "";
-                    this.championshipName = "";
+                    this.game.teamA = null;
+                    this.game.teamB = null;
+                    this.game.goalsA = null;
+                    this.game.goalsB = null;
+                    this.game.championshipId = null;
                 });
+        },
+        async deleteGame(id) {
+            await $fetch(`${this.baseUrl}/api/games/${id}`, {
+                method: "DELETE",
+                headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+            }).then(() => {
+                this.getGames();
+            });  
         },
     },
 };
