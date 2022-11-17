@@ -96,8 +96,7 @@
 
 body {
     font-family: "Ubuntu", sans-serif;
-    background: #b98ecc69;
-    color: #9656b3;
+    background: #000000;
     position: relative;
     min-height: 100vh;
 }
@@ -106,7 +105,6 @@ body::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: url("~/assets/images/balapi.svg");
     background-size: cover;
     opacity: 1;
     z-index: -1;
@@ -124,6 +122,5 @@ input::placeholder{
 }
 
 input:focus{
-outline: 2px solid #b98ecc69;
-
+    outline: 2px solid #b98ecc69;
 }
