@@ -85,8 +85,8 @@ export default {
             }).then(() => (this.getTeam(this.team.id)));
         },
         async getAllPlayers() {
-            $fetch(`${this.baseUrl}/api/players/`, {
-                method: "get",
+            $fetch(`${this.baseUrl}/api/players`, {
+                method: "GET",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
