@@ -4,7 +4,6 @@
             <nuxt-link class="bg-primary aspect-square shadow-lg ball rounded-full shadow-gray-500 text-white grid place-items-center text-4xl" to="/teams"><span class="relative z-10">Teams</span></nuxt-link>
             <nuxt-link class="bg-primary aspect-square shadow-lg ball rounded-full shadow-gray-500 text-white grid place-items-center text-4xl" to="/players"><span class="relative z-10">Players</span></nuxt-link>
             <nuxt-link class="bg-primary aspect-square shadow-lg ball rounded-full shadow-gray-500 text-white grid place-items-center text-4xl" to="/championships"><span class="relative z-10">Championships</span></nuxt-link>
-            <nuxt-link class="bg-primary aspect-square shadow-lg ball rounded-full shadow-gray-500 text-white grid place-items-center text-4xl" to="/"><span class="relative z-10">Scores</span></nuxt-link>
             <nuxt-link class="bg-primary aspect-square shadow-lg ball rounded-full shadow-gray-500 text-white grid place-items-center text-4xl" to="/games"><span class="relative z-10">Games</span></nuxt-link>
         </div>
     </div>
