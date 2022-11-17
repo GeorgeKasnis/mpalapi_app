@@ -8,16 +8,19 @@
 export default {
     data() {
         return {
-            game: {}
+            game: {},
+            baseUrl: ""
         };
     },
     mounted() {
         const route = useRoute();
         this.getGame(route.params.id);
+        const config = useRuntimeConfig();
+        this.baseUrl = config.BASE_URL;
     },
     methods: {
         async getGame(id) {
-            await $fetch(`http://127.0.0.1:8000/api/games/${id}`, {
+            await $fetch(`${this.baseUrl}/api/games/${id}`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",

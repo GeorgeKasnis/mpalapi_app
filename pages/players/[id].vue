@@ -9,16 +9,19 @@
 export default {
     data() {
         return {
-            player: {}
+            player: {},
+            baseUrl: "",
         };
     },
     mounted() {
         const route = useRoute();
+        const config = useRuntimeConfig();
+        this.baseUrl = config.BASE_URL;
         this.getPlayer(route.params.id);
     },
     methods: {
         async getPlayer(id) {
-            await $fetch(`http://127.0.0.1:8000/api/players/${id}`, {
+            await $fetch(`${this.baseUrl}/api/players/${id}`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",

@@ -23,16 +23,20 @@
 export default {
     data() {
         return {
-            championship: {}
+            championship: {},
+            baseUrl : ""
         };
     },
     mounted() {
         const route = useRoute();
-        this.getChampionships(route.params.id);
+        const config = useRuntimeConfig();
+        this.baseUrl = config.BASE_URL;
+        this.getChampionship(route.params.id);
+        
     },
     methods: {
-        async getChampionships(id) {
-            await $fetch(`http://127.0.0.1:8000/api/championships/${id}`, {
+        async getChampionship(id) {
+            await $fetch(`${this.baseUrl}/api/championships/${id}`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
@@ -43,14 +47,14 @@ export default {
             });
         },
         async closeChampionship(id) {
-            await $fetch(`http://127.0.0.1:8000/api/championships/${id}/close`, {
+            await $fetch(`${this.baseUrl}/api/championships/${id}/close`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-            }).then((response) => {
-                this.getChampionships(this.championship.id)
+            }).then(() => {
+                this.getChampionship(this.championship.id)
             });
         }
     }

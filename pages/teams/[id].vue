@@ -35,17 +35,21 @@ export default {
             team: {},
             allPlayers: {},
             isOpen: false,
-            playerId : null
+            playerId : null,
+            baseUrl : null
+
         };
     },
     mounted() {
         const route = useRoute();
+        const config = useRuntimeConfig();
+        this.baseUrl = config.BASE_URL;
         this.getTeam(route.params.id);
         this.getAllPlayers();
     },
     methods: {
         async getTeam(id) {
-            await $fetch("http://127.0.0.1:8000/api/teams/" + id, {
+            await $fetch(`${this.baseUrl}/api/teams/${id}`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
@@ -54,7 +58,7 @@ export default {
             }).then((response) => (this.team = response));
         },
         async attachPlayer() {
-            $fetch(`http://127.0.0.1:8000/api/teams/${this.team.id}/players`, {
+            $fetch(`${this.baseUrl}/api/teams/${this.team.id}/players`, {
                 method: "PUT",
                 headers: {
                     Accept: "application/json",
@@ -72,7 +76,7 @@ export default {
             });
         },
         async detatchPlayer(id) {
-            $fetch(`http://127.0.0.1:8000/api/teams/${this.team.id}/players/${id}`, {
+            $fetch(`${this.baseUrl}/api/teams/${this.team.id}/players/${id}`, {
                 method: "DELETE",
                 headers: {
                     Accept: "application/json",
@@ -81,7 +85,7 @@ export default {
             }).then(() => (this.getTeam(this.team.id)));
         },
         async getAllPlayers() {
-            $fetch(`http://127.0.0.1:8000/api/players/`, {
+            $fetch(`${this.baseUrl}/api/players/`, {
                 method: "get",
                 headers: {
                     Accept: "application/json",
