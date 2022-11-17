@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{results}}
         <h1 class="text-2xl text-center mb-8 font-bold text-primary">Results</h1>
 
         <transition name="fade-in-out">

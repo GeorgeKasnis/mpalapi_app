@@ -1,8 +1,14 @@
 <template>
     <div>
+        {{championship}}
         <h1 class="text-2xl text-center mb-8 font-bold text-primary">{{ championship.title }}</h1>
         <h2 class="text-2xl text-center mb-8 font-bold text-primary">{{ championship.finished_at == null ? "" : `Closed at ${championship.finished_at}` }}</h2>
         <button v-if="championship.finished_at == null" @click="closeChampionship(championship.id)" class="text-primary mx-auto mb-8 bg-secondary grid place-items-center shadow-md shadow-gray-500">CLOSE CHAMPIONSHIP</button>
+        <transition name="fade-in-out">
+            <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
+                <UIBaseCard v-for="(team, index) in championship.results" :key="index" :name="team.name" :number="team.points" :link="`/teams/${team.id}`"/>
+            </div>
+        </transition>
     </div>
 </template>
 
