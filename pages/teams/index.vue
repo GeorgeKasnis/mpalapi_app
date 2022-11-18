@@ -5,7 +5,7 @@
         <button @click="isOpen = true" class="text-primary mx-auto mb-8 bg-secondary w-12 h-12 rounded-full grid place-items-center text-4xl shadow-md shadow-gray-500">+</button>
 
         <transition name="fade-in-out">
-            <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto" v-if="!loading">
+            <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
                 <UIBaseCard v-for="(team, index) in teams" :key="index" :name="team.name" :link="'teams/' + team.id" @delete="deleteTeam(team.id)" deletable="true" />
             </div>
         </transition>
