@@ -1,7 +1,7 @@
 <template>
     <!-- Main modal -->
-    <div tabindex="" aria-hidden="true" class="bg-[#39003b]/70 overflow-y-auto grid place-content-center overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
-        <div class="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative">
+    <div tabindex="" aria-hidden="true" class="h-screen bg-[#39003b]/70 overflow-y-auto grid place-content-center overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
+        <div class="bg-white rounded-lg md:max-w-md md:mx-auto p-4  bottom-0 z-50 mb-4 mx-4 md:relative">
             <div class="md:flex items-center">
                 <div class="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6">
