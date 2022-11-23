@@ -1,7 +1,7 @@
 <template>
     <div>
         <transition name="fade">
-            <div class="bg-primary h-screen grid items-center z-50 fixed top-0 left-0 w-screen" v-if="loading">
+            <div class="bg-[#39003b] h-screen grid items-center z-[999] fixed top-0 left-0 w-screen" v-if="loading">
                 <div>
                     <div class="sk-cube-grid [&>*]:bg-secondary">
                         <div class="sk-cube sk-cube1"></div>
@@ -20,7 +20,7 @@
             </div>
         </transition>
         <UITheHeader />
-        <div class="px-4 py-8"><slot /></div>
+        <div class="px-4 py-8 min-h-screen"><slot /></div>
     </div>
 </template>
 
@@ -28,7 +28,7 @@
 export default {
     data() {
         return {
-            loading: false,
+            loading: true,
         };
     },
     beforeMount() {
