@@ -4,11 +4,11 @@
 
         <h2 class="text-2xl text-center mb-8 font-bold text-primary">Team Players</h2>
 
-        <ButtonsAddBtn  v-if="team.players" @click="isOpen = true" />
+        <ButtonsAddBtn v-if="team.players" @click="isOpen = true" />
 
         <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto">
             <div v-for="(player, index) in team.players" :key="index">
-                <UIBaseCard :number="player.number" deletable="true" @delete="detatchPlayer(player.id)" :link="`/players/${player.id}`" :name="player.name" />
+                <UIBaseCard :number="player.number" deletable="true" @delete="confirmDelete(player.id)" :link="`/players/${player.id}`" :name="player.name" />
             </div>
         </div>
 
@@ -25,6 +25,9 @@
                 </form>
             </UIBaseModal>
         </transition>
+        <transition name="fade-in-out">
+            <UIBaseConfirmationModal v-if="confirmationIsOpen" @delete-item="detachPlayer(itemForDelete)" @close-modal="confirmationIsOpen = false" />
+        </transition>
     </div>
 </template>
 
@@ -37,6 +40,8 @@ export default {
             isOpen: false,
             playerId: null,
             baseUrl: null,
+            confirmationIsOpen: false,
+            itemForDelete: "",
         };
     },
     mounted() {
@@ -73,7 +78,7 @@ export default {
                 this.getTeam(this.team.id);
             });
         },
-        async detatchPlayer(id) {
+        async detachPlayer(id) {
             $fetch(`${this.baseUrl}/api/teams/${this.team.id}/players/${id}`, {
                 method: "DELETE",
                 headers: {
@@ -81,6 +86,7 @@ export default {
                     "Content-Type": "application/json",
                 },
             }).then(() => this.getTeam(this.team.id));
+            this.confirmationIsOpen = false;
         },
         async getAllPlayers() {
             $fetch(`${this.baseUrl}/api/players`, {
@@ -90,6 +96,10 @@ export default {
                     "Content-Type": "application/json",
                 },
             }).then((response) => (this.allPlayers = response));
+        },
+        confirmDelete(id) {
+            this.confirmationIsOpen = true;
+            this.itemForDelete = id;
         },
     },
 };

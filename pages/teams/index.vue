@@ -2,11 +2,11 @@
     <div>
         <h1 class="text-2xl text-center mb-8 font-bold text-primary">Teams</h1>
 
-        <ButtonsAddBtn  @click="isOpen = true"/>
+        <ButtonsAddBtn @click="isOpen = true" />
 
         <transition name="fade-in-out">
             <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
-                <UIBaseCard v-for="(team, index) in teams" :key="index" :name="team.name" :link="'teams/' + team.id" @delete="deleteTeam(team.id)" deletable="true" />
+                <UIBaseCard v-for="(team, index) in teams" :key="index" :name="team.name" :link="'teams/' + team.id" @delete="confirmDelete(team.id)" deletable="true" />
             </div>
         </transition>
 
@@ -20,6 +20,10 @@
             </UIBaseModal>
         </transition>
 
+        <transition name="fade-in-out">
+            <UIBaseConfirmationModal v-if="confirmationIsOpen" @delete-item="deleteTeam(itemForDelete)" @close-modal="confirmationIsOpen = false" />
+        </transition>
+
         <UIBaseLoadingSpinner v-if="loading" />
     </div>
 </template>
@@ -31,6 +35,8 @@ export default {
             teams: {},
             name: "",
             isOpen: false,
+            confirmationIsOpen: false,
+            itemForDelete: "",
             loading: true,
             baseUrl: "",
         };
@@ -53,7 +59,7 @@ export default {
                 .then(() => {
                     this.loading = false;
                 });
-                console.log(this.teams);
+            console.log(this.teams);
         },
         async addTeam() {
             await $fetch(`${this.baseUrl}/api/teams`, {
@@ -76,7 +82,12 @@ export default {
             }).then(() => this.getTeams());
 
             this.isOpen = false;
+            this.confirmationIsOpen = false;
             this.name = "";
+        },
+        confirmDelete(id) {
+            this.confirmationIsOpen = true;
+            this.itemForDelete = id;
         },
     },
 };

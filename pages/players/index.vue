@@ -2,10 +2,10 @@
     <div>
         <h1 class="text-2xl text-center mb-8 font-bold text-primary">Players</h1>
 
-        <ButtonsAddBtn  @click="isOpen = true"/>
+        <ButtonsAddBtn @click="isOpen = true" />
 
         <div class="grid grid-cols-1 gap-8 max-w-xl mx-auto">
-            <UIBaseCard v-for="(player, index) in players" :key="index" :number="player.number" :link="`/players/${player.id}`" deletable="true" @delete="detachPlayer(player.id)" :name="player.name" />
+            <UIBaseCard v-for="(player, index) in players" :key="index" :number="player.number" :link="`/players/${player.id}`" deletable="true" @delete="confirmDelete(player.id)" :name="player.name" />
         </div>
 
         <transition name="fade-in-out">
@@ -19,6 +19,9 @@
                     <ButtonsBaseBtn name="Add Player" />
                 </form>
             </UIBaseModal>
+        </transition>
+        <transition name="fade-in-out">
+            <UIBaseConfirmationModal v-if="confirmationIsOpen" @delete-item="detachPlayer(itemForDelete)" @close-modal="confirmationIsOpen = false" />
         </transition>
     </div>
 </template>
@@ -34,6 +37,8 @@ export default {
             },
             isOpen: false,
             baseUrl: "",
+            confirmationIsOpen: false,
+            itemForDelete: "",
         };
     },
     mounted() {
@@ -76,6 +81,11 @@ export default {
             }).then(() => {
                 this.getPlayers();
             });
+            this.confirmationIsOpen = false;
+        },
+        confirmDelete(id) {
+            this.confirmationIsOpen = true;
+            this.itemForDelete = id;
         },
     },
 };

@@ -5,7 +5,7 @@
         <ButtonsAddBtn @click="isOpen = true" />
         <transition name="fade-in-out">
             <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
-                <UIBaseCard v-for="(championship, index) in championships" :key="index" :name="championship.title" :link="`/championships/${championship.id}`" @delete="deleteChampionship(championship.id)" deletable="true" />
+                <UIBaseCard v-for="(championship, index) in championships" :key="index" :name="championship.title" :link="`/championships/${championship.id}`" @delete="confirmDelete(championship.id)" deletable="true" />
             </div>
         </transition>
 
@@ -17,6 +17,9 @@
                     <ButtonsBaseBtn name="Add Championship" />
                 </form>
             </UIBaseModal>
+        </transition>
+        <transition name="fade-in-out">
+            <UIBaseConfirmationModal v-if="confirmationIsOpen" @delete-item="deleteChampionship(itemForDelete)" @close-modal="confirmationIsOpen = false" />
         </transition>
 
         <UIBaseLoadingSpinner v-if="loading" />
@@ -32,6 +35,8 @@ export default {
             isOpen: false,
             loading: true,
             baseUrl: null,
+            confirmationIsOpen: false,
+            itemForDelete: "",
         };
     },
     mounted() {
@@ -78,6 +83,11 @@ export default {
                 this.isOpen = false;
                 this.championshipTitle = "";
             });
+            this.confirmationIsOpen = false;
+        },
+        confirmDelete(id) {
+            this.confirmationIsOpen = true;
+            this.itemForDelete = id;
         },
     },
 };
