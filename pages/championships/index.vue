@@ -2,8 +2,7 @@
     <div>
         <h1 class="text-2xl text-center mb-8 font-bold text-primary">Championships</h1>
 
-        <button @click="isOpen = true" class="text-primary mx-auto mb-8 bg-secondary w-12 h-12 rounded-full grid place-items-center text-4xl shadow-md shadow-gray-500">+</button>
-
+        <ButtonsAddBtn @click="isOpen = true" />
         <transition name="fade-in-out">
             <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
                 <UIBaseCard v-for="(championship, index) in championships" :key="index" :name="championship.title" :link="`/championships/${championship.id}`" @delete="deleteChampionship(championship.id)" deletable="true" />
@@ -48,44 +47,37 @@ export default {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-            })
-                .then((response) => {
-                    this.championships = response;
-                    this.loading = false;
-                });
-                
+            }).then((response) => {
+                this.championships = response;
+                this.loading = false;
+            });
         },
         async addChampionship() {
             await $fetch(`${this.baseUrl}/api/championships`, {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ title: this.championshipTitle }),
-                })
-                .then((response) => {
-                   this.getChampionships()
-                   this.isOpen = false;
-                   this.championshipTitle = "";
-                });
-
-            
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ title: this.championshipTitle }),
+            }).then((response) => {
+                this.getChampionships();
+                this.isOpen = false;
+                this.championshipTitle = "";
+            });
         },
         async deleteChampionship(id) {
             await $fetch(`${this.baseUrl}/api/championships/${id}`, {
                 method: "DELETE",
                 headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
             }).then(() => {
                 this.getChampionships();
                 this.isOpen = false;
                 this.championshipTitle = "";
             });
-
-            
         },
     },
 };

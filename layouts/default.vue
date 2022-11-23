@@ -28,13 +28,13 @@
 export default {
     data() {
         return {
-            loading: true,
+            loading: false,
         };
     },
     beforeMount() {
         setTimeout(() => {
             this.loading = false;
-        }, 2000);
+        }, 700);
     },
 };
 </script>

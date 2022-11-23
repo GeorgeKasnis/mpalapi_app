@@ -9,6 +9,10 @@ module.exports = {
                 secondary: "#B98ECC",
                 third: "#a979bd",
             },
+            screens: {
+                mobile: { max: "575px" },
+                tablet: { max: "991px" },
+            },
         },
     },
     plugins: [],

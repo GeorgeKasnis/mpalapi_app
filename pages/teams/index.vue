@@ -2,7 +2,7 @@
     <div>
         <h1 class="text-2xl text-center mb-8 font-bold text-primary">Teams</h1>
 
-        <button @click="isOpen = true" class="text-primary mx-auto mb-8 bg-secondary w-12 h-12 rounded-full grid place-items-center text-4xl shadow-md shadow-gray-500">+</button>
+        <ButtonsAddBtn  @click="isOpen = true"/>
 
         <transition name="fade-in-out">
             <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">

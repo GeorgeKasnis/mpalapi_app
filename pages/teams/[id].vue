@@ -1,15 +1,15 @@
 <template>
     <div>
         <h1 class="text-2xl text-center mb-8 font-bold text-primary">{{ team.name }}</h1>
-        
+
         <h2 class="text-2xl text-center mb-8 font-bold text-primary">Team Players</h2>
 
-        <button v-if="team.players" @click="isOpen = true" class="text-primary mx-auto mb-8 bg-secondary w-12 h-12 rounded-full grid place-items-center text-4xl shadow-md shadow-gray-500">+</button>
+        <ButtonsAddBtn  v-if="team.players" @click="isOpen = true" />
 
         <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto">
-            <div v-for="(player, index) in team.players" :key="index" >
+            <div v-for="(player, index) in team.players" :key="index">
                 <UIBaseCard :number="player.number" deletable="true" @delete="detatchPlayer(player.id)" :link="`/players/${player.id}`" :name="player.name" />
-            </div >
+            </div>
         </div>
 
         <transition name="fade-in-out">
@@ -35,9 +35,8 @@ export default {
             team: {},
             allPlayers: {},
             isOpen: false,
-            playerId : null,
-            baseUrl : null
-
+            playerId: null,
+            baseUrl: null,
         };
     },
     mounted() {
@@ -67,12 +66,11 @@ export default {
                 body: {
                     player_id: this.playerId,
                 },
-            })
-            .then((response) => {
+            }).then((response) => {
                 console.log(response);
                 this.playerId = null;
                 this.isOpen = false;
-                this.getTeam(this.team.id)
+                this.getTeam(this.team.id);
             });
         },
         async detatchPlayer(id) {
@@ -82,7 +80,7 @@ export default {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-            }).then(() => (this.getTeam(this.team.id)));
+            }).then(() => this.getTeam(this.team.id));
         },
         async getAllPlayers() {
             $fetch(`${this.baseUrl}/api/players`, {
