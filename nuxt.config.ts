@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     modules: ["@nuxtjs/tailwindcss"],
 
-    css: ["~/assets/css/index.css"],
+    css: ["~/assets/css/index.css", "@fortawesome/fontawesome-svg-core/styles.css"],
 
     app: {
         head: {
@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 
     runtimeConfig: {
         public: {
-          BASE_URL: process.env.BASE_URL
-        }
-      }
+            BASE_URL: process.env.BASE_URL,
+        },
+    },
 });

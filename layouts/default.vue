@@ -20,9 +20,9 @@
             </div>
         </transition>
         <UITheHeader />
-        <div class="flex">
+        <div class="flex pl-72">
             <UITheSidebar />
-            <div class="px-4 py-8 min-h-screen"><slot /></div>
+            <div class="bg-dark p-12"><slot /></div>
         </div>
     </div>
 </template>

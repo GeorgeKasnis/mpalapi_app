@@ -7,6 +7,7 @@ module.exports = {
             colors: {
                 primary: "#4E0351",
                 secondary: "#FC2C80",
+                dark: "#39003B",
             },
             screens: {
                 mobile: { max: "575px" },
