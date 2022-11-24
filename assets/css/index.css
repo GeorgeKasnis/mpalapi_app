@@ -3,73 +3,41 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "Ubuntu";
-    src: url("~/assets/fonts/Ubuntu-Regular.woff2") format("woff2"), url("~/assets/fonts/Ubuntu-Regular.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Ubuntu";
-    src: url("~/assets/fonts/Ubuntu-BoldItalic.woff2") format("woff2"), url("~/assets/fonts/Ubuntu-BoldItalic.woff") format("woff");
-    font-weight: bold;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Ubuntu";
-    src: url("~/assets/fonts/Ubuntu-Bold.woff2") format("woff2"), url("~/assets/fonts/Ubuntu-Bold.woff") format("woff");
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Ubuntu";
-    src: url("~/assets/fonts/Ubuntu-Italic.woff2") format("woff2"), url("~/assets/fonts/Ubuntu-Italic.woff") format("woff");
-    font-weight: normal;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Ubuntu";
-    src: url("~/assets/fonts/Ubuntu-LightItalic.woff2") format("woff2"), url("~/assets/fonts/Ubuntu-LightItalic.woff") format("woff");
-    font-weight: 300;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Ubuntu";
-    src: url("~/assets/fonts/Ubuntu-Light.woff2") format("woff2"), url("~/assets/fonts/Ubuntu-Light.woff") format("woff");
+    font-family: "Asty CF Std";
+    src: url("~/assets/fonts/AstyCFStd-Light.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Light.woff") format("woff");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Ubuntu";
-    src: url("~/assets/fonts/Ubuntu-MediumItalic.woff2") format("woff2"), url("~/assets/fonts/Ubuntu-MediumItalic.woff") format("woff");
-    font-weight: 500;
-    font-style: italic;
+    font-family: "Asty CF Std";
+    src: url("~/assets/fonts/AstyCFStd-Bold.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Ubuntu";
-    src: url("~/assets/fonts/Ubuntu-Medium.woff2") format("woff2"), url("~/assets/fonts/Ubuntu-Medium.woff") format("woff");
+    font-family: "Asty CF Std";
+    src: url("~/assets/fonts/AstyCFStd-Thin.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Thin.woff") format("woff");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Asty CF Std";
+    src: url("~/assets/fonts/AstyCFStd-Medium.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Medium.woff") format("woff");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Ubuntu";
-    src: url("~/assets/fonts/Ubuntu-Regular.woff2") format("woff2"), url("~/assets/fonts/Ubuntu-Regular.woff") format("woff");
-    font-weight: normal;
+    font-family: "Asty CF Std";
+    src: url("~/assets/fonts/AstyCFStd-ExtraBold.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-ExtraBold.woff") format("woff");
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
@@ -86,7 +54,7 @@
 
 .fade-in-out-leave-active,
 .fade-in-out-enter-active {
-    transition: .2s opacity  linear;
+    transition: 0.2s opacity linear;
 }
 
 .fade-in-out-leave-to,
@@ -95,8 +63,9 @@
 }
 
 body {
-    font-family: "Ubuntu", sans-serif;
+    font-family: "Asty CF Std", sans-serif;
     background: #000000;
+    color: white;
     position: relative;
     min-height: 100vh;
 }
@@ -111,17 +80,17 @@ body::after {
     z-index: -1;
 }
 
-input{
+input {
     border-radius: 100rem;
     color: white;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     background: #b98ecc69;
 }
 
-input::placeholder{
+input::placeholder {
     color: rgba(255, 255, 255, 0.546);
 }
 
-input:focus{
+input:focus {
     outline: 2px solid #b98ecc69;
 }

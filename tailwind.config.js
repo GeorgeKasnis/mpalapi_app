@@ -5,13 +5,15 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: "#9656B3",
-                secondary: "#B98ECC",
-                third: "#a979bd",
+                primary: "#4E0351",
+                secondary: "#FC2C80",
             },
             screens: {
                 mobile: { max: "575px" },
                 tablet: { max: "991px" },
+            },
+            backgroundImage: {
+                "bolt-image": "url('~/assets/images/stripes.svg')",
             },
         },
     },
