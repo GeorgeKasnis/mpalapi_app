@@ -1,5 +1,5 @@
 <template>
-    <header class="h-16 sticky top-0 flex items-center !bg-primary">
+    <header class="h-16 sticky top-0 flex items-center bg-primary">
         <NuxtLink to="/" class="w-72 p-4 flex"><img class="h-full object-contain" src="~/assets/images/Ballapi_Logo.svg" alt="" /></NuxtLink>
         <div class="flex items-center justify-between flex-1 h-full">
             <nuxt-link class="text-lg" to="/">Αρχική</nuxt-link>

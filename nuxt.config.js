@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     modules: ["@nuxtjs/tailwindcss"],
 
-    css: ["~/assets/css/index.css", "@fortawesome/fontawesome-svg-core/styles.css", "vuetify/lib/styles/main.sass"],
+    css: ["@fortawesome/fontawesome-svg-core/styles.css", "vuetify/lib/styles/main.sass", "~/assets/css/index.css"],
     build: {
         transpile: ["vuetify"],
     },
@@ -26,5 +26,9 @@ export default defineNuxtConfig({
         public: {
             BASE_URL: process.env.BASE_URL,
         },
+    },
+
+    vuetify: {
+        treeShake: true,
     },
 });
