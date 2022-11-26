@@ -22,7 +22,7 @@
         <UITheHeader />
         <div class="flex pl-72">
             <UITheSidebar />
-            <div class="bg-dark p-12"><slot /></div>
+            <div class="bg-dark p-12 w-full"><slot /></div>
         </div>
     </div>
 </template>

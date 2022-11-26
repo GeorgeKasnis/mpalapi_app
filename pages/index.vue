@@ -1,13 +1,22 @@
 <template>
-    <div>
-        <div class="grid mx-auto max-w-5xl mobile:grid-cols-1 mobile:px-16  mobile:gap-8 grid-cols-3 gap-16  place-content-center">
-            <nuxt-link class="bg-primary aspect-square shadow-xl ball rounded-full shadow-black text-white grid place-items-center text-3xl mobile:text-2xl hover:shadow-none hover:translate-y-2 transition-all duration-300" to="/teams"><span class="relative z-10">Teams</span></nuxt-link>
-            <nuxt-link class="bg-primary aspect-square shadow-xl ball rounded-full shadow-black text-white grid place-items-center text-3xl mobile:text-2xl hover:shadow-none hover:translate-y-2 transition-all duration-300" to="/players"><span class="relative z-10">Players</span></nuxt-link>
-            <nuxt-link class="bg-primary aspect-square shadow-xl ball rounded-full shadow-black text-white grid place-items-center text-3xl mobile:text-2xl hover:shadow-none hover:translate-y-2 transition-all duration-300" to="/championships"><span class="relative z-10">Championships</span></nuxt-link>
-            <nuxt-link class="bg-primary aspect-square shadow-xl ball rounded-full shadow-black text-white grid place-items-center text-3xl mobile:text-2xl hover:shadow-none hover:translate-y-2 transition-all duration-300" to="/games"><span class="relative z-10">Games</span></nuxt-link>
-            <nuxt-link class="bg-primary aspect-square shadow-xl ball rounded-full shadow-black text-white grid place-items-center text-3xl mobile:text-2xl hover:shadow-none hover:translate-y-2 transition-all duration-300" to="/results"><span class="relative z-10">Results</span></nuxt-link>
+    <div class="grid grid-cols-12 gap-16">
+        <div class="col-span-5">
+            <div class=" text-3xl font-bold mb-6">Επόμενα Παιχνίδια</div>
+            <div class="allnotfirst:mt-8">
+                <div class="flex items-center gap-8 bg-[#3E0440] rounded-md p-16 tablet:m-8">
+                    <div><img src="~/assets/images/aetoi@2x.png" alt="" /></div>
+                    <div class="text-8xl">vs</div>
+                    <div><img src="~/assets/images/eyez@2x.png" alt="" /></div>
+                </div>
+                <div class="flex items-center gap-8 bg-[#3E0440] rounded-md p-16 tablet:m-8">
+                    <div><img src="~/assets/images/aetoi@2x.png" alt="" /></div>
+                    <div class="text-8xl">vs</div>
+                    <div><img src="~/assets/images/eyez@2x.png" alt="" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-7">
+            <div class=" text-3xl font-bold mb-6">Τελευταία Αποτελέσματα</div>
         </div>
     </div>
 </template>
-
-
