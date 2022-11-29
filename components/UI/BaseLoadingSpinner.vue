@@ -1,6 +1,6 @@
 <template>
-    <div class="fixed w-screen h-screen  top-0 grid place-items-center">
-        <div class="lds-spinner -translate-x-4">
+    <div class="absolute inset-0 h-full  grid place-items-center">
+        <div class="lds-spinner">
             <div></div>
             <div></div>
             <div></div>

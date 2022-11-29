@@ -17,8 +17,9 @@
         </div>
         <div class="col-span-7">
             <div class="text-3xl font-bold mb-6">Τελευταία Αποτελέσματα</div>
-            <div>
-                <TablesBaseTable :table-content="tableContent" />
+            <div class="relative h-full">
+                <TablesBaseTable v-if="!loading" :table-content="tableContent" />
+                <UIBaseLoadingSpinner v-if="loading" />
             </div>
         </div>
     </div>
@@ -28,42 +29,38 @@
 export default {
     data() {
         return {
+            loading: true,
             tableContent: {
-                rows:['ΟΜΑΔΑ ΕΝΤΟΣ','ΟΜΑΔΑ ΕΚΤΟΣ','ΑΠΟΤΕΛΕΣΜΑΤΑ'],
-                columns: [
-                    {
-                        teamA: "AETOS TRAPEZOUNΤΑΣ F.C.",
-                        teamB: "YOUR EYES F.C.",
-                        result: "10-7",
-                    },
-                    {
-                        teamA: "AETOS TRAPEZOUNΤΑΣ F.C.",
-                        teamB: "YOUR EYES F.C.",
-                        result: "10-7",
-                    },
-                    {
-                        teamA: "AETOS TRAPEZOUNΤΑΣ F.C.",
-                        teamB: "YOUR EYES F.C.",
-                        result: "10-7",
-                    },
-                    {
-                        teamA: "AETOS TRAPEZOUNΤΑΣ F.C.",
-                        teamB: "YOUR EYES F.C.",
-                        result: "10-7",
-                    },
-                    {
-                        teamA: "AETOS TRAPEZOUNΤΑΣ F.C.",
-                        teamB: "YOUR EYES F.C.",
-                        result: "10-7",
-                    },
-                    {
-                        teamA: "AETOS TRAPEZOUNΤΑΣ F.C.",
-                        teamB: "YOUR EYES F.C.",
-                        result: "10-7",
-                    },
-                ],
+                rows: ["ΟΜΑΔΑ ΕΝΤΟΣ", "ΟΜΑΔΑ ΕΚΤΟΣ", "ΑΠΟΤΕΛΕΣΜΑΤΑ"],
+                columns: [],
             },
         };
+    },
+    methods: {
+        async getGames() {
+            await $fetch(`${this.baseUrl}/api/games`, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            }).then((response) => {
+                response.forEach((element) => {
+                    this.tableContent.columns.push({
+                        team_a: element.team_a.name,
+                        team_b: element.team_b.name,
+                        result: `${element.team_a_goals} - ${element.team_b_goals}`,
+                    });
+                });
+                this.games = response;
+                this.loading = false;
+            });
+        },
+    },
+    mounted() {
+        const config = useRuntimeConfig();
+        this.baseUrl = config.BASE_URL;
+        this.getGames();
     },
 };
 </script>

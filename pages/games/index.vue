@@ -5,8 +5,9 @@
         <ButtonsAddBtn @click="isOpen = true" />
 
         <transition name="fade-in-out">
-            <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
-                <UIBaseCard v-for="(game, index) in games" :key="index" :link="`/games/${game.id}`" :name="`${game.team_a.name} ${game.team_a_goals} - ${game.team_b_goals} ${game.team_b.name}`" @delete="confirmDelete(game.id)" deletable="true" />
+            <div class="relative h-full">
+                <TablesBaseTable v-if="!loading" :table-content="tableContent" />
+                <UIBaseLoadingSpinner v-if="loading" />
             </div>
         </transition>
 
@@ -48,8 +49,6 @@
         <transition name="fade-in-out">
             <UIBaseConfirmationModal v-if="confirmationIsOpen" @delete-item="deleteGame(itemForDelete)" @close-modal="confirmationIsOpen = false" />
         </transition>
-
-        <UIBaseLoadingSpinner v-if="loading" />
     </div>
 </template>
 
@@ -72,14 +71,18 @@ export default {
             games: {},
             confirmationIsOpen: false,
             itemForDelete: "",
+            tableContent: {
+                rows: ["ΟΜΑΔΑ ΕΝΤΟΣ", "ΟΜΑΔΑ ΕΚΤΟΣ", "ΑΠΟΤΕΛΕΣΜΑΤΑ"],
+                columns: [],
+            },
         };
     },
     mounted() {
         const config = useRuntimeConfig();
         this.baseUrl = config.BASE_URL;
+        this.getGames();
         this.getChampionships();
         this.getTeams();
-        this.getGames();
     },
     methods: {
         async getChampionships() {
@@ -114,6 +117,13 @@ export default {
                     "Content-Type": "application/json",
                 },
             }).then((response) => {
+                response.forEach((element) => {
+                    this.tableContent.columns.push({
+                        team_a: element.team_a.name,
+                        team_b: element.team_b.name,
+                        result: `${element.team_a_goals} - ${element.team_b_goals}`,
+                    });
+                });
                 this.games = response;
                 this.loading = false;
             });

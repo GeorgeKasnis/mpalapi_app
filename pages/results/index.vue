@@ -1,11 +1,7 @@
 <template>
-    <div>
-        <h1 class="text-2xl text-center mb-8 font-bold text-primary">Results</h1>
-
+    <div class="min-h-[20rem]">
         <transition name="fade-in-out">
-            <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
-                <UIBaseCard v-for="(team, index) in results" :key="index" :name="team.name" :number="team.points" :link="`/teams/${team.id}`"/>
-            </div>
+            <TablesBaseTable v-if="!loading" :table-content="tableContent" />
         </transition>
 
         <UIBaseLoadingSpinner v-if="loading" />
@@ -19,6 +15,10 @@ export default {
             results: {},
             loading: true,
             baseUrl: null,
+            tableContent: {
+                rows: ["ΘΕΣΗ", "ΟΜΑΔΑ", "ΒΑΘΜΟΙ"],
+                columns: [],
+            },
         };
     },
     mounted() {
@@ -34,13 +34,19 @@ export default {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-            })
-                .then((response) => {
-                    this.results = response;
-                    this.loading = false;
+            }).then((response) => {
+                this.results = response;
+                response.forEach((element,index) => {
+                    this.tableContent.columns.push({
+                        position: index+1,
+                        team: element.name,
+                        points: element.points,
+                    });
                 });
-                
-        }
+                this.loading = false;
+                console.log(response);
+            });
+        },
     },
 };
 </script>
