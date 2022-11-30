@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-2xl text-center mb-8 font-bold text-primary">Players</h1>
+        <h1 class="text-2xl text-center mb-8 font-bold text-main">Players</h1>
 
         <ButtonsAddBtn @click="isOpen = true" />
 

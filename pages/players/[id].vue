@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h1 class="text-2xl text-center mb-8 font-bold text-primary">{{ player.name }}</h1>
-        <h2 class="text-2xl text-center mb-8 font-bold text-primary">{{ player.number }}</h2>
+        <h1 class="text-2xl text-center mb-8 font-bold text-main">{{ player.name }}</h1>
+        <h2 class="text-2xl text-center mb-8 font-bold text-main">{{ player.number }}</h2>
     </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h1 class="text-2xl text-center mb-8 font-bold text-primary">{{ team.name }}</h1>
+        <h1 class="text-2xl text-center mb-8 font-bold text-main">{{ team.name }}</h1>
 
-        <h2 class="text-2xl text-center mb-8 font-bold text-primary">Team Players</h2>
+        <h2 class="text-2xl text-center mb-8 font-bold text-main">Team Players</h2>
 
         <ButtonsAddBtn v-if="team.players" @click="isOpen = true" />
 
