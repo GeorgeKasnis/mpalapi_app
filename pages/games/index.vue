@@ -1,8 +1,6 @@
 <template>
     <div>
-        <h1 class="text-2xl text-center mb-8 font-bold text-primary">Games</h1>
-
-        <ButtonsAddBtn @click="isOpen = true" />
+        <UIBaseAdd @click="isOpen = true" class="" name="Add Game" />
 
         <transition name="fade-in-out">
             <div class="relative h-full">

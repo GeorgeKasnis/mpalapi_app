@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @font-face {
     font-family: "Asty CF Std";
     src: url("~/assets/fonts/AstyCFStd-Light.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Light.woff") format("woff");
@@ -83,4 +85,10 @@ input::placeholder {
 
 input:focus {
     outline: 2px solid #b98ecc69;
+}
+
+
+.sidebar .router-link-exact-active{
+    background: #FC2C80;
+    opacity: 1;
 }
