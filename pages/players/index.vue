@@ -1,11 +1,22 @@
 <template>
     <div>
-        <h1 class="text-2xl text-center mb-8 font-bold text-main">Players</h1>
+        <div class="flex">
+            <UIBaseAdd @click="isOpen = true" class="" name="Add Player" />
+        </div>
 
-        <ButtonsAddBtn @click="isOpen = true" />
-
-        <div class="grid grid-cols-1 gap-8 max-w-xl mx-auto">
+        <!-- <div class="grid grid-cols-1 gap-8 max-w-xl mx-auto">
             <UIBaseCard v-for="(player, index) in players" :key="index" :number="player.number" :link="`/players/${player.id}`" deletable="true" @delete="confirmDelete(player.id)" :name="player.name" />
+        </div> -->
+
+        <div class="grid grid-cols-4 gap-4 mt-8">
+            <div class="relative group" v-for="(player, index) in players" :key="index">
+                <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="aspect-[1] object-cover" alt="" />
+                <div class="bg-[#4E0351] p-3 text-center">
+                    <div class="font-thin">{{ player.name }} {{ player.number }}</div>
+                    <div>Your eyes fc</div>
+                </div>
+                <div class="text-end mb-0"><button @click="confirmDelete(player.id)" class="opacity-0 translate-y-4  group-hover:opacity-100 group-hover:translate-y-0 rotate-45 ml-auto absolute top-3 right-3 bg-white/20 hover:bg-white/40 w-8 h-8 rounded-full grid place-items-center transition-all duration-200">+</button></div>
+            </div>
         </div>
 
         <transition name="fade-in-out">
@@ -13,8 +24,8 @@
                 <h2 class="text-xl mx-auto mb-4 text-center">Add Player</h2>
                 <form @submit.prevent="addPlayer" class="[&>*]:mb-4">
                     <div>
-                        <div class="mb-4"><input v-model="player.name" class="border" placeholder="Player name" type="text" /></div>
-                        <div><input v-model="player.number" class="border" placeholder="Player number" type="text" /></div>
+                        <v-text-field v-model="player.name" placeholder="Player name" type="text"></v-text-field>
+                        <v-text-field v-model="player.number" placeholder="Player number" type="number"></v-text-field>
                     </div>
                     <ButtonsBaseBtn name="Add Player" />
                 </form>

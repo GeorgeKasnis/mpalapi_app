@@ -3,7 +3,7 @@
         <transition name="fade">
             <div class="bg-[#39003b] h-screen grid items-center z-[999] fixed top-0 left-0 w-screen" v-if="loading">
                 <div>
-                    <div class="sk-cube-grid [&>*]:bg-secondary">
+                    <div class="sk-cube-grid [&>*]:bg-second">
                         <div class="sk-cube sk-cube1"></div>
                         <div class="sk-cube sk-cube2"></div>
                         <div class="sk-cube sk-cube3"></div>

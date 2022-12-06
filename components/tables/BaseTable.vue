@@ -7,8 +7,8 @@
                 </tr>
             </thead>
             <tbody class="">
-                <tr class="odd:bg-[#4E0351]   even:!bg-[#420544]" v-for="(item, index) in tableContent.columns" :key="index">
-                    <td class="!py-6    border-y-4 border-[#39003B]"  v-for="i,index in item" :key="index">{{ i }}</td>
+                <tr class="odd:bg-[#4E0351] even:!bg-[#420544]" v-for="(item, index) in tableContent.columns" :key="index">
+                    <td class="!py-6 border-y-4 border-[#39003B]" v-for="(i, index) in item" :key="index">{{ i }}</td>
                 </tr>
             </tbody>
         </v-table>

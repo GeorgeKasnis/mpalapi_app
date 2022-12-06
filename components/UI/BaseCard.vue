@@ -1,5 +1,5 @@
 <template>
-    <div class="text-xl text-main bg-secondary rounded-lg shadow-sm shadow-black relative z-10">
+    <div class="text-xl text-main bg-second rounded-lg shadow-sm shadow-black relative z-10">
         <nuxt-link :to="link" class="relative after:grid after:place-items-center after:text-3xl after:content-['👁'] after:absolute after:inset-0 after:rounded-lg after:pointer-events-none after:bg-white after:opacity-0 hover:after:opacity-70 after:transition-all">
             <div class="text-center truncate transition px-12 py-4 block">{{ name }}</div>
         </nuxt-link>

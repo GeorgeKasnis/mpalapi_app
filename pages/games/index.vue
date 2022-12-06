@@ -1,10 +1,12 @@
 <template>
     <div>
-        <UIBaseAdd @click="isOpen = true" class="" name="Add Game" />
+        <div class="flex">
+            <UIBaseAdd @click="isOpen = true" class="" name="Add Game" />
+        </div>
 
         <transition name="fade-in-out">
             <div class="relative h-full">
-                <TablesBaseTable v-if="!loading" :table-content="tableContent" />
+                <TablesBaseTable v-if="!loading" :table-content="tableContent" @delete-row="alert()" />
                 <UIBaseLoadingSpinner v-if="loading" />
             </div>
         </transition>
@@ -13,33 +15,11 @@
             <UIBaseModal v-if="isOpen" @close-modal="isOpen = false">
                 <h2 class="text-xl mx-auto mb-2 text-center">Add Team</h2>
                 <form @submit.prevent="createGame" class="[&>*]:mb-4">
-                    <div>
-                        <label
-                            >Team A
-                            <select placeholder="Team A" v-model="game.teamA" class="border w-full text-black">
-                                <option :value="team.id" v-for="(team, index) in teams" :key="index">{{ team.name }}</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div>
-                        <label
-                            >Team B
-                            <select placeholder="Team B" v-model="game.teamB" class="border w-full text-black">
-                                <option :value="team.id" v-for="(team, index) in teams" :key="index">{{ team.name }}</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div><input v-model="game.goalsA" class="border text-white" placeholder="Team A goals" type="number" /></div>
-                    <div><input v-model="game.goalsB" class="border text-white" placeholder="Team B goals" type="number" /></div>
-                    <div>
-                        <label
-                            >Select Championship
-                            <select placeholder="Championship" v-model="game.championshipId" class="border w-full text-black">
-                                <option :value="null">Friendly Match</option>
-                                <option :value="championship.id" v-for="(championship, index) in championships" :key="index">{{ championship.title }}</option>
-                            </select>
-                        </label>
-                    </div>
+                    <v-select v-model="game.teamA" :items="teamOptions" item-title="name" item-value="id" label="Team A" single-line></v-select>
+                    <v-select v-model="game.teamB" :items="teamOptions" item-title="name" item-value="id" label="Team B" single-line></v-select>
+                    <v-text-field placeholder="Team A goals" v-model="game.goalsA" type="number"></v-text-field>
+                    <v-text-field placeholder="Team B goals" v-model="game.goalsB" type="number"></v-text-field>
+                    <v-select v-model="game.championshipId" :items="championshipsOptions" item-title="name" item-value="id" label="Championship" single-line></v-select>
                     <ButtonsBaseBtn name="Add Game" />
                 </form>
             </UIBaseModal>
@@ -54,6 +34,10 @@
 export default {
     data() {
         return {
+            select: "",
+            teamOptions: [],
+            championshipsOptions: [],
+            items: [],
             championships: {},
             teams: {},
             isOpen: false,
@@ -91,6 +75,13 @@ export default {
                     "Content-Type": "application/json",
                 },
             }).then((response) => {
+                console.log(response);
+                response.forEach((element) => {
+                    this.championshipsOptions.push({
+                        id: element.id,
+                        name: element.title,
+                    });
+                });
                 this.championships = response;
                 this.loading = false;
             });
@@ -103,11 +94,19 @@ export default {
                     "Content-Type": "application/json",
                 },
             }).then((response) => {
+                response.forEach((element) => {
+                    this.teamOptions.push({
+                        id: element.id,
+                        name: element.name,
+                    });
+                });
                 this.teams = response;
                 this.loading = false;
+                console.log(this.teamOptions);
             });
         },
         async getGames() {
+            this.tableContent.columns = []
             await $fetch(`${this.baseUrl}/api/games`, {
                 method: "GET",
                 headers: {
@@ -147,8 +146,7 @@ export default {
                     "Content-Type": "application/json",
                 },
                 body: this.buildGame(),
-            }).then((response) => {
-                console.log(response);
+            }).then(() => {
                 this.getGames();
                 this.isOpen = false;
                 this.game.teamA = null;

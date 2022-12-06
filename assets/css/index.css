@@ -72,7 +72,7 @@ body {
     min-height: 100vh;
 }
 
-input {
+/* input {
     border-radius: 100rem;
     color: white;
     padding: 0.5rem 1rem;
@@ -85,7 +85,7 @@ input::placeholder {
 
 input:focus {
     outline: 2px solid #b98ecc69;
-}
+} */
 
 
 .sidebar .router-link-exact-active{

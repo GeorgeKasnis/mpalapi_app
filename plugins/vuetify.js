@@ -1,11 +1,12 @@
 import { createVuetify } from "vuetify";
-import { VTable } from "vuetify/components/VTable";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
 
 export default defineNuxtPlugin((nuxtApp) => {
     const vuetify = createVuetify({
-        components: {
-            VTable,
-        },
+        components,
+        directives,
     });
+
     nuxtApp.vueApp.use(vuetify);
 });

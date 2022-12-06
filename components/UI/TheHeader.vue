@@ -1,6 +1,6 @@
 <template>
-    <header class="h-16 sticky top-0 flex items-center bg-main">
-        <NuxtLink to="/" class="w-72 p-4 flex"><img class="h-full object-contain" src="~/assets/images/Ballapi_Logo.svg" alt="" /></NuxtLink>
+    <header class="h-16 sticky top-0 flex items-center bg-main z-50 ">
+        <NuxtLink to="/" class="w-72 p-4"><img class="h-full object-contain" src="~/assets/images/Ballapi_Logo.svg" alt="" /></NuxtLink>
         <div class="flex items-center justify-between flex-1 h-full">
             <nuxt-link class="text-lg" to="/">Αρχική</nuxt-link>
             <div class="flex gap-8 items-center h-full">

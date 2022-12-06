@@ -1,12 +1,19 @@
 <template>
     <div>
-        <h1 class="text-2xl text-center mb-8 font-bold text-main">Teams</h1>
+        <div class="flex">
+            <UIBaseAdd @click="isOpen = true" class="" name="Add Team" />
+        </div>
 
-        <ButtonsAddBtn @click="isOpen = true" />
-
-        <transition name="fade-in-out">
+        <!-- <transition name="fade-in-out">
             <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
                 <UIBaseCard v-for="(team, index) in teams" :key="index" :name="team.name" :link="'teams/' + team.id" @delete="confirmDelete(team.id)" deletable="true" />
+            </div>
+        </transition> -->
+
+        <transition name="fade-in-out">
+            <div class="relative h-full">
+                <TablesBaseTable v-if="!loading" :table-content="tableContent" />
+                <UIBaseLoadingSpinner v-if="loading" />
             </div>
         </transition>
 
@@ -14,7 +21,7 @@
             <UIBaseModal v-if="isOpen" @close-modal="isOpen = false">
                 <h2 class="text-xl mx-auto mb-2 text-center">Add Team</h2>
                 <form @submit.prevent="addTeam" class="[&>*]:mb-4">
-                    <div><input v-model="name" class="border text-white" placeholder="Team name" type="text" /></div>
+                    <v-text-field placeholder="Team name" v-model="name" type="text"></v-text-field>
                     <ButtonsBaseBtn name="Add Team" />
                 </form>
             </UIBaseModal>
@@ -24,7 +31,6 @@
             <UIBaseConfirmationModal v-if="confirmationIsOpen" @delete-item="deleteTeam(itemForDelete)" @close-modal="confirmationIsOpen = false" />
         </transition>
 
-        <UIBaseLoadingSpinner v-if="loading" />
     </div>
 </template>
 
@@ -39,6 +45,9 @@ export default {
             itemForDelete: "",
             loading: true,
             baseUrl: "",
+            tableContent: {
+                columns: [],
+            },
         };
     },
     mounted() {
@@ -48,6 +57,7 @@ export default {
     },
     methods: {
         async getTeams() {
+            this.tableContent.columns = []
             await $fetch(`${this.baseUrl}/api/teams`, {
                 method: "GET",
                 headers: {
@@ -55,8 +65,16 @@ export default {
                     "Content-Type": "application/json",
                 },
             })
-                .then((response) => (this.teams = response))
-                .then(() => {
+                .then((response) => {
+                    console.log(response);
+                    
+                    response.forEach((element) => {
+                        this.tableContent.columns.push({
+                            id: element.id,
+                            name: element.name,
+                        });
+                    });
+                    this.games = response;
                     this.loading = false;
                 });
             console.log(this.teams);

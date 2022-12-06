@@ -9,7 +9,8 @@
   },
   "devDependencies": {
     "@nuxtjs/google-fonts": "^2.0.0",
-    "nuxt": "3.0.0-rc.13"
+    "nuxt": "3.0.0-rc.13",
+    "tailwind-scrollbar": "^2.0.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",

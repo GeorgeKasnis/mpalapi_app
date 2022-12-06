@@ -6,7 +6,7 @@ module.exports = {
         extend: {
             colors: {
                 main: "#4E0351",
-                secondary: "#FC2C80",
+                second: "#FC2C80",
                 dark: "#39003B",
             },
             screens: {
@@ -24,5 +24,6 @@ module.exports = {
             addVariant("child-hover", "& > *:hover");
             addVariant("allnotfirst", "& > *+*");
         },
+        require("tailwind-scrollbar"),
     ],
 };
