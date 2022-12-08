@@ -4,23 +4,22 @@
             <UIBaseAdd @click="isOpen = true" class="" name="Add League" />
         </div>
 
-        <transition name="fade-in-out">
-            <div class="relative h-full">
-                <TablesBaseTable v-if="!loading" :table-content="tableContent" @delete-row="alert()" />
-                <UIBaseLoadingSpinner v-if="loading" />
-            </div>
-        </transition>
-        <transition name="fade-in-out">
-            <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
-                <UIBaseCard v-for="(championship, index) in championships" :key="index" :name="championship.title" :link="`/championships/${championship.id}`" @delete="confirmDelete(championship.id)" deletable="true" />
-            </div>
-        </transition>
+        <vue-good-table class="table-nohead" :columns="tableContent.columns" :rows="tableContent.rows">
+            <template #table-row="props">
+                <span v-if="props.column.field == 'edit'">
+                    <TablesShowChip :link="'championships/'+props.row.id"/>
+                </span>
+                <span v-else-if="props.column.field == 'delete'">
+                    <TablesDeleteChip @click="confirmDelete(props.row.id)" />
+                </span>
+            </template>
+        </vue-good-table>
 
         <transition name="fade-in-out">
             <UIBaseModal v-if="isOpen" @close-modal="isOpen = false">
-                <h2 class="text-xl mx-auto mb-2 text-center">Add Team</h2>
+                <h2 class="text-xl mx-auto mb-2 text-center">Add Championship</h2>
                 <form @submit.prevent="addChampionship" class="[&>*]:mb-4">
-                    <div><input v-model="championshipTitle" class="border text-white" placeholder="Title" type="text" /></div>
+                    <v-text-field placeholder="Title" v-model="championshipTitle" type="text"></v-text-field>
                     <ButtonsBaseBtn name="Add Championship" />
                 </form>
             </UIBaseModal>
@@ -43,7 +42,23 @@ export default {
             confirmationIsOpen: false,
             itemForDelete: "",
             tableContent: {
-                columns: [],
+                columns: [
+                    {
+                        field: "id",
+                        hidden: true,
+                    },
+                    {
+                        field: "title",
+                        tdClass: "w-[95%]",
+                    },
+                    {
+                        field: "edit",
+                    },
+                    {
+                        field: "delete",
+                    },
+                ],
+                rows: [],
             },
         };
     },
@@ -54,6 +69,7 @@ export default {
     },
     methods: {
         async getChampionships() {
+            this.tableContent.rows = [];
             await $fetch(`${this.baseUrl}/api/championships`, {
                 method: "GET",
                 headers: {
@@ -62,7 +78,7 @@ export default {
                 },
             }).then((response) => {
                 response.forEach((element) => {
-                    this.tableContent.columns.push({
+                    this.tableContent.rows.push({
                         id: element.id,
                         title: element.title,
                     });

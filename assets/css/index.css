@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @font-face {
     font-family: "Asty CF Std";
     src: url("~/assets/fonts/AstyCFStd-Light.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Light.woff") format("woff");
@@ -66,7 +64,7 @@
 
 body {
     font-family: "Asty CF Std", sans-serif;
-   background: #39003B;
+    background: #39003b;
     color: white;
     position: relative;
     min-height: 100vh;
@@ -87,8 +85,64 @@ input:focus {
     outline: 2px solid #b98ecc69;
 } */
 
-
-.sidebar .router-link-exact-active{
-    background: #FC2C80;
+.sidebar .router-link-exact-active {
+    background: #fc2c80;
     opacity: 1;
+}
+
+.table-nohead thead {
+    display: none !important;
+}
+
+table.vgt-table {
+    border: none !important;
+    /* border-collapse: separate !important;
+    border-spacing: 0 1em !important; */
+    background: red;
+    border-collapse: collapse;
+    border-radius: 30px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px #666;
+}
+
+table.vgt-table * {
+    border: none !important;
+    color: white;
+}
+
+table.vgt-table tr {
+    border: 5px solid #39003b !important;
+    border-radius: 10px !important;
+}
+
+table.vgt-table td + td {
+    padding-left: 0 !important;
+}
+
+table.vgt-table tr:nth-child(odd) {
+    background: #4e0351;
+}
+table.vgt-table tr:nth-child(even) {
+    background: #420544;
+}
+
+table.vgt-table tr:first-child td:first-child {
+    border-top-left-radius: 10px !important;
+}
+table.vgt-table tr:first-child td:last-child {
+    border-top-right-radius: 10px !important;
+}
+
+table.vgt-table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px !important;
+}
+table.vgt-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px !important;
+}
+
+table.vgt-table tr:first-child td {
+    border-top-style: solid !important;
+}
+table.vgt-table tr td:first-child {
+    border-left-style: solid !important;
 }
