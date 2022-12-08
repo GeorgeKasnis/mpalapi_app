@@ -1,8 +1,15 @@
 <template>
     <div>
-        <h1 class="text-2xl text-center mb-8 font-bold text-main">Championships</h1>
+        <div class="flex">
+            <UIBaseAdd @click="isOpen = true" class="" name="Add League" />
+        </div>
 
-        <ButtonsAddBtn @click="isOpen = true" />
+        <transition name="fade-in-out">
+            <div class="relative h-full">
+                <TablesBaseTable v-if="!loading" :table-content="tableContent" @delete-row="alert()" />
+                <UIBaseLoadingSpinner v-if="loading" />
+            </div>
+        </transition>
         <transition name="fade-in-out">
             <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto" v-if="!loading">
                 <UIBaseCard v-for="(championship, index) in championships" :key="index" :name="championship.title" :link="`/championships/${championship.id}`" @delete="confirmDelete(championship.id)" deletable="true" />
@@ -21,8 +28,6 @@
         <transition name="fade-in-out">
             <UIBaseConfirmationModal v-if="confirmationIsOpen" @delete-item="deleteChampionship(itemForDelete)" @close-modal="confirmationIsOpen = false" />
         </transition>
-
-        <UIBaseLoadingSpinner v-if="loading" />
     </div>
 </template>
 
@@ -37,6 +42,9 @@ export default {
             baseUrl: null,
             confirmationIsOpen: false,
             itemForDelete: "",
+            tableContent: {
+                columns: [],
+            },
         };
     },
     mounted() {
@@ -53,6 +61,12 @@ export default {
                     "Content-Type": "application/json",
                 },
             }).then((response) => {
+                response.forEach((element) => {
+                    this.tableContent.columns.push({
+                        id: element.id,
+                        title: element.title,
+                    });
+                });
                 this.championships = response;
                 this.loading = false;
             });
