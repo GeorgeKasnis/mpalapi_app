@@ -1,14 +1,21 @@
 <template>
     <div>
-        <h1 class="text-2xl text-center mb-8 font-bold text-main">{{ team.name }}</h1>
+        <h1 class="text-2xl text-end mb-8 font-bold text-main">{{ team.name }}</h1>
 
-        <h2 class="text-2xl text-center mb-8 font-bold text-main">Team Players</h2>
-
-        <ButtonsAddBtn v-if="team.players" @click="isOpen = true" />
+        <div class="flex">
+            <UIBaseAdd @click="isOpen = true" class="mb-8" name="Add Player" />
+        </div>
 
         <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto">
-            <div v-for="(player, index) in team.players" :key="index">
-                <UIBaseCard :number="player.number" deletable="true" @delete="confirmDelete(player.id)" :link="`/players/${player.id}`" :name="player.name" />
+            <div class="relative group" v-for="(player, index) in team.players" :key="index">
+                <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="aspect-[1] object-cover" alt="" />
+                <div class="bg-[#4E0351] p-3 text-center">
+                    <div class="font-thin">{{ player.name }} {{ player.number }}</div>
+                    <div>Your eyes fc</div>
+                </div>
+                <div class="text-end mb-0">
+                    <button @click="confirmDelete(player.id)" class="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 rotate-45 ml-auto absolute top-3 right-3 bg-white/20 hover:bg-white/40 w-8 h-8 rounded-full grid place-items-center transition-all duration-200">+</button>
+                </div>
             </div>
         </div>
 
@@ -17,9 +24,7 @@
                 <h2 class="text-xl mx-auto mb-2 text-center">Add Player to this team</h2>
                 <form @submit.prevent="attachPlayer" class="[&>*]:mb-4">
                     <div>
-                        <select v-model="playerId" class="border w-full text-black">
-                            <option :value="player.id" v-for="(player, index) in allPlayers" :key="index">{{ player.name }}</option>
-                        </select>
+                        <v-select v-model="playerId" :items="allPlayers" item-title="name" item-value="id" label="Select Player" single-line></v-select>
                     </div>
                     <ButtonsBaseBtn name="Add Player" />
                 </form>
