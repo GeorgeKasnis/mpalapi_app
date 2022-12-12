@@ -1,7 +1,7 @@
 <template>
     <div class="min-h-[20rem]">
         <transition name="fade-in-out">
-            <TablesBaseTable v-if="!loading" :table-content="tableContent" />
+            <vue-good-table v-if="!loading" :columns="tableContent.columns" :rows="tableContent.rows"></vue-good-table>
         </transition>
 
         <UIBaseLoadingSpinner v-if="loading" />
@@ -16,8 +16,21 @@ export default {
             loading: true,
             baseUrl: null,
             tableContent: {
-                rows: ["ΘΕΣΗ", "ΟΜΑΔΑ", "ΒΑΘΜΟΙ"],
-                columns: [],
+                columns: [
+                    {
+                        field: "position",
+                        label: "ΘΕΣΗ",
+                    },
+                    {
+                        field: "team",
+                        label: "ΟΜΑΔΑ",
+                    },
+                    {
+                        field: "points",
+                        label: "ΒΑΘΜΟΙ",
+                    },
+                ],
+                rows: [],
             },
         };
     },
@@ -36,9 +49,9 @@ export default {
                 },
             }).then((response) => {
                 this.results = response;
-                response.forEach((element,index) => {
-                    this.tableContent.columns.push({
-                        position: index+1,
+                response.forEach((element, index) => {
+                    this.tableContent.rows.push({
+                        position: index + 1,
                         team: element.name,
                         points: element.points,
                     });

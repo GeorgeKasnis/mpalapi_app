@@ -18,7 +18,7 @@
         <div class="col-span-7">
             <div class="text-3xl font-bold mb-6">Τελευταία Αποτελέσματα</div>
             <div class="relative h-full">
-                <TablesBaseTable v-if="!loading" :table-content="tableContent" />
+                <vue-good-table  v-if="!loading" :columns="tableContent.columns" :rows="tableContent.rows"></vue-good-table>
                 <UIBaseLoadingSpinner v-if="loading" />
             </div>
         </div>
@@ -31,8 +31,21 @@ export default {
         return {
             loading: true,
             tableContent: {
-                rows: ["ΟΜΑΔΑ ΕΝΤΟΣ", "ΟΜΑΔΑ ΕΚΤΟΣ", "ΑΠΟΤΕΛΕΣΜΑΤΑ"],
-                columns: [],
+                columns: [
+                    {
+                        field: "homeTeam",
+                        label: "ΟΜΑΔΑ ΕΝΤΟΣ",
+                    },
+                    {
+                        field: "awayTeam",
+                        label: "ΟΜΑΔΑ ΕΚΤΟΣ",
+                    },
+                    {
+                        field: "result",
+                        label: "ΑΠΟΤΕΛΕΣΜΑ",
+                    },
+                ],
+                rows: [],
             },
         };
     },
@@ -46,9 +59,9 @@ export default {
                 },
             }).then((response) => {
                 response.forEach((element) => {
-                    this.tableContent.columns.push({
-                        team_a: element.team_a.name,
-                        team_b: element.team_b.name,
+                    this.tableContent.rows.push({
+                        homeTeam: element.team_a.name,
+                        awayTeam: element.team_b.name,
                         result: `${element.team_a_goals} - ${element.team_b_goals}`,
                     });
                 });

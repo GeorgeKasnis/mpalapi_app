@@ -90,15 +90,28 @@ input:focus {
     opacity: 1;
 }
 
+.vgt-table thead th{
+    background: #39003b !important;
+    border: none !important;
+    font-size: .75rem;
+}
+.vgt-table th.sortable button::after,.vgt-table th.sortable button::before{
+    content: none !important;
+}
+
 .table-nohead thead {
     display: none !important;
+}
+
+.vgt-table thead{
+    pointer-events: none;
 }
 
 table.vgt-table {
     border: none !important;
     /* border-collapse: separate !important;
     border-spacing: 0 1em !important; */
-    background: red;
+
     border-collapse: collapse;
     border-radius: 30px;
     border-style: hidden;
@@ -108,6 +121,7 @@ table.vgt-table {
 table.vgt-table * {
     border: none !important;
     color: white;
+    vertical-align: middle !important;
 }
 
 table.vgt-table tr {

@@ -6,7 +6,13 @@
 
         <transition name="fade-in-out">
             <div class="relative h-full">
-                <TablesBaseTable v-if="!loading" :table-content="tableContent" @delete-row="alert()" />
+                <vue-good-table v-if="!loading" :columns="tableContent.columns" :rows="tableContent.rows">
+                    <template #table-row="props">
+                        <span v-if="props.column.field == 'delete'">
+                            <TablesDeleteChip @click="confirmDelete(props.row.id)" />
+                        </span>
+                    </template>
+                </vue-good-table>
                 <UIBaseLoadingSpinner v-if="loading" />
             </div>
         </transition>
@@ -54,8 +60,28 @@ export default {
             confirmationIsOpen: false,
             itemForDelete: "",
             tableContent: {
-                rows: ["ΟΜΑΔΑ ΕΝΤΟΣ", "ΟΜΑΔΑ ΕΚΤΟΣ", "ΑΠΟΤΕΛΕΣΜΑΤΑ"],
-                columns: [],
+                columns: [
+                    {
+                        field: "id",
+                        hidden: true,
+                    },
+                    {
+                        field: "team_a",
+                        label: "ΟΜΑΔΑ ΕΝΤΟΣ",
+                    },
+                    {
+                        field: "team_b",
+                        label: "ΟΜΑΔΑ ΕΚΤΟΣ",
+                    },
+                    {
+                        field: "result",
+                        label: "ΒΑΘΜΟΙ",
+                    },
+                    {
+                        field: "delete",
+                    },
+                ],
+                rows: [],
             },
         };
     },
@@ -75,7 +101,6 @@ export default {
                     "Content-Type": "application/json",
                 },
             }).then((response) => {
-                console.log(response);
                 response.forEach((element) => {
                     this.championshipsOptions.push({
                         id: element.id,
@@ -102,11 +127,10 @@ export default {
                 });
                 this.teams = response;
                 this.loading = false;
-                console.log(this.teamOptions);
             });
         },
         async getGames() {
-            this.tableContent.columns = []
+            this.tableContent.rows = [];
             await $fetch(`${this.baseUrl}/api/games`, {
                 method: "GET",
                 headers: {
@@ -115,13 +139,14 @@ export default {
                 },
             }).then((response) => {
                 response.forEach((element) => {
-                    this.tableContent.columns.push({
+                    this.tableContent.rows.push({
+                        id: element.id,
                         team_a: element.team_a.name,
                         team_b: element.team_b.name,
                         result: `${element.team_a_goals} - ${element.team_b_goals}`,
                     });
                 });
-                this.games = response;
+                console.log("table", this.tableContent);
                 this.loading = false;
             });
         },

@@ -12,7 +12,19 @@
 
         <transition name="fade-in-out">
             <div class="relative h-full">
-                <TablesBaseTable v-if="!loading" :table-content="tableContent" />
+                <vue-good-table v-if="!loading" :columns="tableContent.columns" :rows="tableContent.rows">
+                    <template #table-row="props">
+                        <span v-if="props.column.field == 'edit'">
+                            <TablesShowChip :link="'teams/' + props.row.id" />
+                        </span>
+                        <span v-else-if="props.column.field == 'delete'">
+                            <TablesDeleteChip @click="confirmDelete(props.row.id)" />
+                        </span>
+                        <span v-else-if="props.column.field == 'image'">
+                            <img class="w-10 h-10  object-contain" :src="props.row.image" alt="" />
+                        </span>
+                    </template>
+                </vue-good-table>
                 <UIBaseLoadingSpinner v-if="loading" />
             </div>
         </transition>
@@ -30,7 +42,6 @@
         <transition name="fade-in-out">
             <UIBaseConfirmationModal v-if="confirmationIsOpen" @delete-item="deleteTeam(itemForDelete)" @close-modal="confirmationIsOpen = false" />
         </transition>
-
     </div>
 </template>
 
@@ -46,7 +57,26 @@ export default {
             loading: true,
             baseUrl: "",
             tableContent: {
-                columns: [],
+                columns: [
+                    {
+                        field: "id",
+                        hidden: true,
+                    },
+                    {
+                        field:"image"
+                    },
+                    {
+                        field: "name",
+                        tdClass: "w-[85%]",
+                    },
+                    {
+                        field: "edit",
+                    },
+                    {
+                        field: "delete",
+                    },
+                ],
+                rows: [],
             },
         };
     },
@@ -57,26 +87,27 @@ export default {
     },
     methods: {
         async getTeams() {
-            this.tableContent.columns = []
+            this.tableContent.rows = [];
             await $fetch(`${this.baseUrl}/api/teams`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-            })
-                .then((response) => {
-                    console.log(response);
-                    
-                    response.forEach((element) => {
-                        this.tableContent.columns.push({
-                            id: element.id,
-                            name: element.name,
-                        });
+            }).then((response) => {
+                console.log(response);
+
+                response.forEach((element) => {
+                    this.tableContent.rows.push({
+                        id: element.id,
+                        image:"https://cdn.pixabay.com/photo/2016/12/26/18/33/logo-1932539__340.png",
+                        name: element.name,
+
                     });
-                    this.games = response;
-                    this.loading = false;
                 });
+                this.games = response;
+                this.loading = false;
+            });
             console.log(this.teams);
         },
         async addTeam() {
