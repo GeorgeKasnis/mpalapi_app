@@ -1,5 +1,5 @@
 <template>
-    <div class="relative sidebar">
+    <div class="relative sidebar tablet:fixed tablet:w-60 tablet:-translate-y-0 tablet:left-0 tablet:top-0 tablet:bottom-0 tablet:z-40">
         <nav
             class="pt-16 after:content-[''] after:inset-0 after:absolute after:bg-bolt-image after:opacity-50 after:bg-cover after:pointer-events-none after:-z-10 h-[calc(100vh-4rem)] fixed left-0 top-16 w-72 bg-no-repeat bg-contain"
             style="background: transparent linear-gradient(180deg, #4e0351 1%, #fc2c80 100%, #000000 100%) 0% 0% no-repeat padding-box">

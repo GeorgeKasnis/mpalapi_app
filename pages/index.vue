@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-12 gap-16">
+    <div class="grid grid-cols-12 tablet:flex tablet:flex-col-reverse gap-16">
         <div class="col-span-5">
             <div class="text-3xl font-bold mb-6">Επόμενα Παιχνίδια</div>
             <div class="allnotfirst:mt-8">
@@ -24,6 +24,8 @@
         </div>
     </div>
 </template>
+
+
 
 <script>
 export default {

@@ -20,9 +20,9 @@
             </div>
         </transition>
         <UITheHeader />
-        <div class="flex pl-72">
-            <UITheSidebar />
-            <div class="bg-dark p-12 w-full relative"><slot /></div>
+        <div class="flex tablet:block pl-72 tablet:pl-0">
+            <UITheSidebar/>
+            <div class="bg-dark p-12 tablet:px-4 tablet:py-12 w-full relative"><slot /></div>
         </div>
     </div>
 </template>

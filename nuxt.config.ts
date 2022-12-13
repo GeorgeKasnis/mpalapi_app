@@ -1,6 +1,6 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-    modules: ["@nuxtjs/tailwindcss"],
+    modules: ["@nuxtjs/tailwindcss", "@nuxtjs/device", "@pinia/nuxt"],
 
     css: ["~/assets/css/index.css", "@fortawesome/fontawesome-svg-core/styles.css"],
 
