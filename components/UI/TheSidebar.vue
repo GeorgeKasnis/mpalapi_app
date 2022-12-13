@@ -15,8 +15,8 @@
                 <li><NuxtLink class="text-white opacity-50 hover:bg-second block p-4 hover:opacity-100 transition-all duration-200" to="/championships">Πρωταθλήματα</NuxtLink></li>
             </ul>
             <ul class="flex">
-                <li class="flex-1"><nuxt-link class="text-white opacity-50 hover:bg-second block p-4 hover:opacity-100 transition-all duration-200" to="/test">Χορηγοί</nuxt-link></li>
-                <li class="flex-1"><nuxt-link class="text-white opacity-50 hover:bg-second block p-4 hover:opacity-100 transition-all duration-200" to="/test">Ball-ΕΠΟ</nuxt-link></li>
+                <li class="flex-1"><nuxt-link class="text-white opacity-50 hover:bg-second block p-4 hover:opacity-100 transition-all duration-200" to="/">Χορηγοί</nuxt-link></li>
+                <li class="flex-1"><nuxt-link class="text-white opacity-50 hover:bg-second block p-4 hover:opacity-100 transition-all duration-200" to="/">Ball-ΕΠΟ</nuxt-link></li>
             </ul>
         </nav>
     </div>
