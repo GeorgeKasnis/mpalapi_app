@@ -12,8 +12,7 @@
             <div class="relative group" v-for="(player, index) in players" :key="index">
                 <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="aspect-[1] object-cover" alt="" />
                 <div class="bg-[#4E0351] p-3 text-center">
-                    <div class="font-thin"><span class="truncate">{{ player.name }}</span> {{ player.number }}</div>
-                    <div>Your eyes fc</div>
+                    <div class="font-thin "><span class="truncate block line-clamp-1 mx-auto">{{ player.name }}</span> {{ player.number }}</div>
                 </div>
                 <div class="text-end mb-0">
                     <button @click="confirmDelete(player.id)" class="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 rotate-45 ml-auto absolute top-3 right-3 bg-white/20 hover:bg-white/40 w-8 h-8 rounded-full grid place-items-center transition-all duration-200">+</button>
