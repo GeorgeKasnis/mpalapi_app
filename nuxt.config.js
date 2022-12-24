@@ -1,6 +1,9 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-    modules: ["@nuxtjs/tailwindcss"],
+    modules: ["@nuxtjs/tailwindcss", "@nuxtjs/device", "@pinia/nuxt"],
+    device: {
+        refreshOnResize: true,
+    },
 
     css: ["@fortawesome/fontawesome-svg-core/styles.css", "vuetify/lib/styles/main.sass", "~/assets/css/index.css"],
     build: {

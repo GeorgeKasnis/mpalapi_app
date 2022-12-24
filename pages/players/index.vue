@@ -8,11 +8,11 @@
             <UIBaseCard v-for="(player, index) in players" :key="index" :number="player.number" :link="`/players/${player.id}`" deletable="true" @delete="confirmDelete(player.id)" :name="player.name" />
         </div> -->
 
-        <div class="grid grid-cols-4 gap-4 mt-8 relative">
+        <div class="grid grid-cols-4 mobile:grid-cols-2 gap-4 mt-8 relative">
             <div class="relative group" v-for="(player, index) in players" :key="index">
                 <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="aspect-[1] object-cover" alt="" />
                 <div class="bg-[#4E0351] p-3 text-center">
-                    <div class="font-thin">{{ player.name }} {{ player.number }}</div>
+                    <div class="font-thin"><span class="truncate">{{ player.name }}</span> {{ player.number }}</div>
                     <div>Your eyes fc</div>
                 </div>
                 <div class="text-end mb-0">

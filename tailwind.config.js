@@ -25,5 +25,6 @@ module.exports = {
             addVariant("allnotfirst", "& > *+*");
         },
         require("tailwind-scrollbar"),
+        require("@tailwindcss/line-clamp"),
     ],
 };

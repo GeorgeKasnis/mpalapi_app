@@ -21,14 +21,21 @@
         </transition>
         <UITheHeader />
         <div class="flex tablet:block pl-72 tablet:pl-0">
-            <UITheSidebar/>
+            <UITheSidebar />
             <div class="bg-dark p-12 tablet:px-4 tablet:py-12 w-full relative"><slot /></div>
         </div>
     </div>
 </template>
 
 <script>
+import { useNavStore } from "~/stores/navigation";
 export default {
+    watch: {
+        $route(to, from) {
+            const mmenu = useNavStore();
+            mmenu.closeNav();
+        },
+    },
     data() {
         return {
             loading: false,
