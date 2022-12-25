@@ -6,18 +6,11 @@ export const usePlayersStore = defineStore("players", {
         loading: true,
         confirmationIsOpen: false,
         itemForDelete: "",
-        isOpen: false,
         player: {
             name: "",
             number: "",
         },
     }),
-    getters: {
-        openModal: (state) => state.isOpen = true,
-      },
-    getters: {
-        closeModal: (state) => state.isOpen = false,
-      },
     actions: {
         async getPlayers() {
             const config = useRuntimeConfig();
@@ -29,7 +22,6 @@ export const usePlayersStore = defineStore("players", {
                     "Content-Type": "application/json",
                 },
             }).then((response) => {
-                console.log("Dasdsa", response);
                 this.players = response;
                 this.loading = false;
             });

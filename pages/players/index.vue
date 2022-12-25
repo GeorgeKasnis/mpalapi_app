@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex">
-            <UIBaseAdd @click="openModal" class="" name="Add Player" />
+            <UIBaseAdd @click="isOpen = true" class="" name="Add Player" />
         </div>
 
         <!-- <div class="grid grid-cols-1 gap-8 max-w-xl mx-auto">
@@ -26,12 +26,12 @@
         <transition name="fade-in-out">
             <UIBaseModal v-if="isOpen" @close-modal="isOpen = false">
                 <h2 class="text-xl mx-auto mb-4 text-center">Add Player</h2>
-                <form @submit.prevent="addPlayer" class="[&>*]:mb-4">
+                <form @submit.prevent="addPlayer();isOpen =false" class="[&>*]:mb-4">
                     <div>
                         <v-text-field v-model="player.name" placeholder="Player name" type="text"></v-text-field>
                         <v-text-field v-model="player.number" placeholder="Player number" type="number"></v-text-field>
                     </div>
-                    <ButtonsBaseBtn name="Add Player" />
+                    <ButtonsBaseBtn @click="isOpen=false" name="Add Player" />
                 </form>
             </UIBaseModal>
         </transition>
@@ -42,15 +42,15 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
 import { mapState } from "pinia";
 import { usePlayersStore } from "~/stores/players";
-import { mapActions } from "pinia";
 import { mapGetters } from "pinia";
 export default {
     data() {
         return {
-            // players: {},
             baseUrl: "",
+            isOpen: false,
         };
     },
     mounted() {
@@ -71,7 +71,6 @@ export default {
         ...mapState(usePlayersStore, ["confirmationIsOpen"]),
         ...mapState(usePlayersStore, ["itemForDelete"]),
         ...mapState(usePlayersStore, ["player"]),
-        ...mapState(usePlayersStore, ["isOpen"]),
     },
 };
 </script>
