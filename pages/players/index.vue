@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex">
-            <UIBaseAdd @click="isOpen = true" class="" name="Add Player" />
+            <UIBaseAdd @click="openModal" class="" name="Add Player" />
         </div>
 
         <!-- <div class="grid grid-cols-1 gap-8 max-w-xl mx-auto">
@@ -12,7 +12,9 @@
             <div class="relative group" v-for="(player, index) in players" :key="index">
                 <img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="aspect-[1] object-cover" alt="" />
                 <div class="bg-[#4E0351] p-3 text-center">
-                    <div class="font-thin "><span class="truncate block line-clamp-1 mx-auto">{{ player.name }}</span> {{ player.number }}</div>
+                    <div class="font-thin">
+                        <span class="truncate block line-clamp-1 mx-auto">{{ player.name }}</span> {{ player.number }}
+                    </div>
                 </div>
                 <div class="text-end mb-0">
                     <button @click="confirmDelete(player.id)" class="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 rotate-45 ml-auto absolute top-3 right-3 bg-white/20 hover:bg-white/40 w-8 h-8 rounded-full grid place-items-center transition-all duration-200">+</button>
@@ -40,19 +42,15 @@
 </template>
 
 <script>
+import { mapState } from "pinia";
+import { usePlayersStore } from "~/stores/players";
+import { mapActions } from "pinia";
+import { mapGetters } from "pinia";
 export default {
     data() {
         return {
-            players: {},
-            player: {
-                name: null,
-                number: null,
-            },
-            isOpen: false,
+            // players: {},
             baseUrl: "",
-            confirmationIsOpen: false,
-            itemForDelete: "",
-            loading: true,
         };
     },
     mounted() {
@@ -61,46 +59,19 @@ export default {
         this.getPlayers();
     },
     methods: {
-        async getPlayers() {
-            await $fetch(`${this.baseUrl}/api/players`, {
-                method: "GET",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-            }).then((response) => (this.players = response));
-            this.loading = false;
-            console.log(this.players);
-        },
-        async addPlayer() {
-            $fetch(`${this.baseUrl}/api/players`, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(this.player),
-            })
-                .then((response) => console.log(JSON.stringify(response)))
-                .then(() => this.getPlayers())
-                .then(() => {
-                    this.isOpen = false;
-                    this.player.name = "";
-                    this.player.number = "";
-                });
-        },
-        async detachPlayer(id) {
-            await $fetch(`${this.baseUrl}/api/players/${id}`, {
-                method: "DELETE",
-            }).then(() => {
-                this.getPlayers();
-            });
-            this.confirmationIsOpen = false;
-        },
-        confirmDelete(id) {
-            this.confirmationIsOpen = true;
-            this.itemForDelete = id;
-        },
+        ...mapActions(usePlayersStore, ["getPlayers"]),
+        ...mapActions(usePlayersStore, ["detachPlayer"], ["id"]),
+        ...mapActions(usePlayersStore, ["confirmDelete"], ["id"]),
+        ...mapActions(usePlayersStore, ["addPlayer"]),
+        ...mapGetters(usePlayersStore, ["openModal"]),
+    },
+    computed: {
+        ...mapState(usePlayersStore, ["players"]),
+        ...mapState(usePlayersStore, ["loading"]),
+        ...mapState(usePlayersStore, ["confirmationIsOpen"]),
+        ...mapState(usePlayersStore, ["itemForDelete"]),
+        ...mapState(usePlayersStore, ["player"]),
+        ...mapState(usePlayersStore, ["isOpen"]),
     },
 };
 </script>
