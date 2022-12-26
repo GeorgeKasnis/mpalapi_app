@@ -11,14 +11,17 @@ export const useGamesStore = defineStore("games", {
                 {
                     field: "team_a",
                     label: "ΟΜΑΔΑ ΕΝΤΟΣ",
+                    width: "40%",
                 },
                 {
                     field: "team_b",
                     label: "ΟΜΑΔΑ ΕΚΤΟΣ",
+                    width: "40%",
                 },
                 {
                     field: "result",
                     label: "ΒΑΘΜΟΙ",
+                    width:"15%"
                 },
                 {
                     field: "delete",
