@@ -19,7 +19,9 @@
         <div class="col-span-7">
             <div class="text-3xl font-bold mb-6">Τελευταία Αποτελέσματα</div>
             <div class="relative h-full">
-                <vue-good-table v-if="!loading" :columns="tableContent.columns" :rows="tableContent.rows"></vue-good-table>
+                <vue-good-table :columns="tableContent.columns" :rows="tableContent.rows">
+                    <template #emptystate> <UISecondaryLoadingSpinner /> </template>
+                </vue-good-table>
                 <UIBaseLoadingSpinner v-if="loading" />
             </div>
         </div>
@@ -27,54 +29,19 @@
 </template>
 
 <script>
+import { useGamesStore } from "~/stores/games";
+import { mapActions } from "pinia";
+import { mapState } from "pinia";
+
 export default {
-    data() {
-        return {
-            loading: true,
-            tableContent: {
-                columns: [
-                    {
-                        field: "homeTeam",
-                        label: "ΟΜΑΔΑ ΕΝΤΟΣ",
-                    },
-                    {
-                        field: "awayTeam",
-                        label: "ΟΜΑΔΑ ΕΚΤΟΣ",
-                    },
-                    {
-                        field: "result",
-                        label: "ΑΠΟΤΕΛΕΣΜΑ",
-                    },
-                ],
-                rows: [],
-            },
-        };
-    },
     methods: {
-        async getGames() {
-            await $fetch(`${this.baseUrl}/api/games`, {
-                method: "GET",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-            }).then((response) => {
-                response.forEach((element) => {
-                    this.tableContent.rows.push({
-                        homeTeam: element.team_a.name,
-                        awayTeam: element.team_b.name,
-                        result: `${element.team_a_goals} - ${element.team_b_goals}`,
-                    });
-                });
-                this.games = response;
-                this.loading = false;
-            });
-        },
+        ...mapActions(useGamesStore, ["getGames"]),
     },
     mounted() {
-        const config = useRuntimeConfig();
-        this.baseUrl = config.BASE_URL;
         this.getGames();
+    },
+    computed: {
+        ...mapState(useGamesStore, ["tableContent"]),
     },
 };
 </script>

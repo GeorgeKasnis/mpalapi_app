@@ -25,7 +25,6 @@ export const useGamesStore = defineStore("games", {
                 },
             ],
             rows: [],
-            loading: true,
         },
         teams: {},
         teamOptions: [],
@@ -39,7 +38,7 @@ export const useGamesStore = defineStore("games", {
             championshipId: null,
         },
         games: {},
-        itemForDelete : null
+        itemForDelete: null,
     }),
     actions: {
         async getGames() {
@@ -86,6 +85,8 @@ export const useGamesStore = defineStore("games", {
             });
         },
         async getChampionships() {
+            this.championships = [];
+            this.championshipsOptions = [];
             const config = useRuntimeConfig();
             await $fetch(`${config.BASE_URL}/api/championships?status=open`, {
                 method: "GET",
