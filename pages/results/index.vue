@@ -11,19 +11,19 @@
 </template>
 
 <script>
-import { useGamesStore } from "~/stores/games";
+import { useResultsStore } from "~/stores/results";
 import { mapActions } from "pinia";
 import { mapState } from "pinia";
 
 export default {
     methods: {
-        ...mapActions(useGamesStore, ["getGames"]),
+        ...mapActions(useResultsStore, ["getResults"]),
     },
     mounted() {
-        this.getGames();
+        this.getResults();
     },
     computed: {
-        ...mapState(useGamesStore, ["tableContent"]),
+        ...mapState(useResultsStore, ["tableContent"]),
     },
 };
 </script>

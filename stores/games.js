@@ -21,7 +21,7 @@ export const useGamesStore = defineStore("games", {
                 {
                     field: "result",
                     label: "ΒΑΘΜΟΙ",
-                    width:"15%"
+                    width: "15%",
                 },
                 {
                     field: "delete",
@@ -46,7 +46,6 @@ export const useGamesStore = defineStore("games", {
     actions: {
         async getGames() {
             const config = useRuntimeConfig();
-            this.tableContent.rows = [];
             await $fetch(`${config.BASE_URL}/api/games`, {
                 method: "GET",
                 headers: {
@@ -54,6 +53,7 @@ export const useGamesStore = defineStore("games", {
                     "Content-Type": "application/json",
                 },
             }).then((response) => {
+                this.tableContent.rows = [];
                 response.forEach((element) => {
                     this.tableContent.rows.push({
                         id: element.id,
@@ -62,13 +62,11 @@ export const useGamesStore = defineStore("games", {
                         result: `${element.team_a_goals} - ${element.team_b_goals}`,
                     });
                 });
-                console.log("table", this.tableContent);
-                console.log("loading", this.loading);
                 this.loading = false;
-                console.log("loading", this.loading);
             });
         },
         async getTeams() {
+            this.teamOptions = [];
             const config = useRuntimeConfig();
             await $fetch(`${config.BASE_URL}/api/teams`, {
                 method: "GET",
