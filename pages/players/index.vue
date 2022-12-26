@@ -20,7 +20,7 @@
                     <button @click="confirmDelete(player.id)" class="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 rotate-45 ml-auto absolute top-3 right-3 bg-white/20 hover:bg-white/40 w-8 h-8 rounded-full grid place-items-center transition-all duration-200">+</button>
                 </div>
             </div>
-            <UIBaseLoadingSpinner v-if="loading" />
+            <UISecondaryLoadingSpinner v-if="loading" />
         </div>
 
         <transition name="fade-in-out">
@@ -36,7 +36,7 @@
             </UIBaseModal>
         </transition>
         <transition name="fade-in-out">
-            <UIBaseConfirmationModal v-if="confirmationIsOpen" @delete-item="detachPlayer(itemForDelete)" @close-modal="confirmationIsOpen = false" />
+            <UIConfirmationModal v-if="confirmationIsOpen" @delete-item="detachPlayer(itemForDelete)" @close-modal="confirmationIsOpen = false" />
         </transition>
     </div>
 </template>
