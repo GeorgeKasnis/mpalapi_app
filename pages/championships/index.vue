@@ -7,12 +7,13 @@
         <vue-good-table class="table-nohead" :columns="tableContent.columns" :rows="tableContent.rows">
             <template #table-row="props">
                 <span v-if="props.column.field == 'edit'">
-                    <TablesShowChip :link="'championships/'+props.row.id"/>
+                    <TablesShowChip :link="'championships/' + props.row.id" />
                 </span>
                 <span v-else-if="props.column.field == 'delete'">
                     <TablesDeleteChip @click="confirmDelete(props.row.id)" />
                 </span>
             </template>
+            <template #emptystate> <UISecondaryLoadingSpinner /> </template>
         </vue-good-table>
 
         <transition name="fade-in-out">

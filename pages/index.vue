@@ -20,10 +20,28 @@
             <div class="text-3xl font-bold mb-6">Τελευταία Αποτελέσματα</div>
             <div class="relative h-full">
                 <vue-good-table :columns="tableContent.columns" :rows="tableContent.rows">
+                    <template #table-row="props">
+                        <span v-if="props.column.field == 'delete'">
+                            <TablesDeleteChip
+                                @click="
+                                    confirmDelete(props.row.id);
+                                    confirmationIsOpen = true;
+                                " />
+                        </span>
+                    </template>
                     <template #emptystate> <UISecondaryLoadingSpinner /> </template>
                 </vue-good-table>
                 <UIBaseLoadingSpinner v-if="loading" />
             </div>
+            <transition name="fade-in-out">
+                <UIBaseConfirmationModal
+                    v-if="confirmationIsOpen"
+                    @delete-item="
+                        deleteGame();
+                        confirmationIsOpen = false;
+                    "
+                    @close-modal="confirmationIsOpen = false" />
+            </transition>
         </div>
     </div>
 </template>
@@ -34,14 +52,23 @@ import { mapActions } from "pinia";
 import { mapState } from "pinia";
 
 export default {
+    data() {
+        return {
+            isOpen: false,
+            confirmationIsOpen: false,
+            itemForDelete: "",
+        };
+    },
     methods: {
         ...mapActions(useGamesStore, ["getGames"]),
+        ...mapActions(useGamesStore, ["deleteGame"]),
+        ...mapActions(useGamesStore, ["confirmDelete", ["id"]]),
     },
     mounted() {
         this.getGames();
     },
     computed: {
-        ...mapState(useGamesStore, ["tableContent"]),
+        ...mapState(useGamesStore, ["tableContent", "loading", "teams", "teamOptions", "championshipsOptions", "championships", "games", "game"]),
     },
 };
 </script>
