@@ -10,7 +10,7 @@ const mmenu = useNavStore();
             <nuxt-link class="text-lg" to="/">Αρχική</nuxt-link>
             <div class="flex gap-8 items-center h-full">
                 <div>23/11/2022 Τετάρτη</div>
-                <nuxt-link to="#" class="text-center hover:bg-[#9A9A9A]/40 bg-[#9A9A9A]/20 px-4 h-full flex flex-col items-center justify-center transition-all duration-200">
+                <nuxt-link to="/" class="text-center hover:bg-[#9A9A9A]/40 bg-[#9A9A9A]/20 px-4 h-full flex flex-col items-center justify-center transition-all duration-200">
                     <!-- <div><font-awesome-icon class="!text-secondary text-sm" icon="fa-solid fa-right-from-bracket" /></div> -->
                     <div class="text-sm">Έξοδος</div>
                 </nuxt-link>
@@ -28,8 +28,8 @@ const mmenu = useNavStore();
         </div>
         <NuxtLink to="/" class="p-4 flex-auto"><img class="w-44 mx-auto h-full object-contain" src="~/assets/images/Ballapi_Logo.svg" alt="" /></NuxtLink>
 
-        <nuxt-link to="#" class="text-center w-16 hover:bg-[#9A9A9A]/40 bg-[#9A9A9A]/20 px-4 h-full flex flex-col items-center justify-center transition-all duration-200">
-            <!-- <div><font-awesome-icon class="!text-secondary text-xs" icon="fa-solid fa-right-from-bracket" /></div> -->
+        <nuxt-link to="/" class="text-center w-16 hover:bg-[#9A9A9A]/40 bg-[#9A9A9A]/20 px-4 h-full flex flex-col items-center justify-center transition-all duration-200">
+            <div><font-awesome-icon class="!text-secondary text-xs" icon="fa-solid fa-right-from-bracket" /></div>
             <div class="text-xs">Έξοδος</div>
         </nuxt-link>
     </header>

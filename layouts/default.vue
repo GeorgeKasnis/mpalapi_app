@@ -1,3 +1,8 @@
+<script setup>
+import { useNavStore } from "~/stores/navigation";
+const mmenu = useNavStore();
+</script>
+
 <template>
     <div>
         <transition name="fade">
@@ -22,7 +27,7 @@
         <UITheHeader />
         <div class="flex tablet:block pl-72 tablet:pl-0">
             <UITheSidebar />
-            <div class="bg-dark p-12 tablet:px-4 tablet:py-12 w-full relative"><slot /></div>
+            <div class="bg-dark p-12 tablet:px-4 tablet:py-12 w-full relative" @click="mmenu.closeNav"><slot  /></div>
         </div>
     </div>
 </template>
@@ -45,6 +50,11 @@ export default {
         setTimeout(() => {
             this.loading = false;
         }, 700);
+    },
+    methods: {
+        myf() {
+            alert("aadsa");
+        },
     },
 };
 </script>
