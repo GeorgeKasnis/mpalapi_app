@@ -1,46 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: "Asty CF Std";
-    src: url("~/assets/fonts/AstyCFStd-Light.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Light.woff") format("woff");
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
 
-@font-face {
-    font-family: "Asty CF Std";
-    src: url("~/assets/fonts/AstyCFStd-Bold.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Bold.woff") format("woff");
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Asty CF Std";
-    src: url("~/assets/fonts/AstyCFStd-Thin.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Thin.woff") format("woff");
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Asty CF Std";
-    src: url("~/assets/fonts/AstyCFStd-Medium.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-Medium.woff") format("woff");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Asty CF Std";
-    src: url("~/assets/fonts/AstyCFStd-ExtraBold.woff2") format("woff2"), url("~/assets/fonts/AstyCFStd-ExtraBold.woff") format("woff");
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
 
 .fade-enter-active,
 .fade-leave-active {
@@ -63,7 +27,7 @@
 }
 
 body {
-    font-family: "Asty CF Std", sans-serif;
+    font-family: "Manrope", sans-serif;
     background: #39003b;
     color: white;
     position: relative;
