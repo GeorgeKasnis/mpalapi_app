@@ -9,7 +9,7 @@ RUN NODE_OPTIONS=--max-old-space-size=8192 npm run build
 
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
-ENV BASE_URL="https://app.balapi.happyoffline.eu/"
+ENV BASE_URL="https://balapi.happyoffline.eu"
 
 EXPOSE 3000 
 
