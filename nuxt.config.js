@@ -27,7 +27,7 @@ export default defineNuxtConfig({
 
     runtimeConfig: {
         public: {
-            BASE_URL: process.env.BASE_URL,
+            BASE_URL: process.env.BASE_URL || 'https://balaki.happyoffline.eu',
         },
     },
 
