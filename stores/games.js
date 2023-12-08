@@ -53,6 +53,7 @@ export const useGamesStore = defineStore("games", {
                     "Content-Type": "application/json",
                 },
             }).then((response) => {
+                console.log(response);
                 this.tableContent.rows = [];
                 response.forEach((element) => {
                     this.tableContent.rows.push({

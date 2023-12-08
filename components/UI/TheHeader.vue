@@ -1,15 +1,10 @@
-<script setup>
-import { useNavStore } from "~/stores/navigation";
-const mmenu = useNavStore();
-</script>
-
 <template>
     <header class="h-16 sticky top-0 tablet:hidden flex items-center bg-main z-50" v-if="$device.isDesktop">
         <NuxtLink to="/" class="w-72 p-4"><img class="h-full object-contain" src="~/assets/images/Ballapi_Logo.svg" alt="" /></NuxtLink>
         <div class="flex items-center justify-between flex-1 h-full">
             <nuxt-link class="text-lg" to="/">Αρχική</nuxt-link>
             <div class="flex gap-8 items-center h-full">
-                <div>23/11/2022 Τετάρτη</div>
+                <div>{{currentDate}}</div>
                 <nuxt-link to="/" class="text-center hover:bg-[#9A9A9A]/40 bg-[#9A9A9A]/20 px-4 h-full flex flex-col items-center justify-center transition-all duration-200">
                     <!-- <div><font-awesome-icon class="!text-secondary text-sm" icon="fa-solid fa-right-from-bracket" /></div> -->
                     <div class="text-sm">Έξοδος</div>
@@ -35,16 +30,26 @@ const mmenu = useNavStore();
     </header>
 </template>
 
-<script>
-// import { mapActions } from "pinia";
-// import { useNavStore } from "~/stores/navigation";
-// export default {
-//     setup() {
-//         const mmenu = useNavStore();
-//         return mmenu;
-//     },
-//     methods: {
-//         ...mapActions(useNavStore, ["openNav", "closeNav"]),
-//     },
-// };
+<script setup lang="ts">
+import { useNavStore } from "~/stores/navigation";
+const mmenu = useNavStore();
+
+// Assuming you have a Date object or a date string
+const date = new Date();
+
+// Define the options for formatting
+const options = {
+  day: "numeric", 
+  month: "numeric",
+  year: "numeric",
+  weekday: "long",
+  timeZone: "UTC", // Adjust the time zone accordingly
+};
+
+// Create a formatter with the specified options
+const dateFormatter = new Intl.DateTimeFormat("el-GR", options);
+
+// Format the date
+const currentDate = dateFormatter.format(date);
+
 </script>
